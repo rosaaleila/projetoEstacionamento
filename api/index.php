@@ -19,7 +19,6 @@
     // permite definir quais os tipos de content type que serao aceitos 
     header('Content-Type: application/json');
 
-
   //Recebe a URL digitada na requisição
   $urlHTTP = (string) $_GET['url'];
   
@@ -30,8 +29,7 @@
   // verifica qual API será encaminhada a requisição (contatos, estados, etc)
   switch (strtoupper($url[0])) {
     case 'CLIENTE':
-      echo("teste2");
-      // require_once('clienteAPI/index.php');
+      require_once('clienteAPI/index.php');
       break;
     
     

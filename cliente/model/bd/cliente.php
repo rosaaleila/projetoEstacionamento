@@ -40,4 +40,10 @@
 
     }
 
+    function listarAllClientes() {
+
+        
+
+    }
+
 ?>
