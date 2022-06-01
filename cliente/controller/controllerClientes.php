@@ -40,7 +40,7 @@
       {
           //Validação de caixa vazia dos elementos nome, celular e email, 
           //pois são obrigatórios no BD
-          if(!empty($dadosCliente['nome']) && !empty($dadosCliente['documento']))
+          if(!empty($dadosCliente[0]['nome']) && !empty($dadosCliente[0]['documento']))
               {
                   //Validação para garantir que id seja válido
                   if(!empty($id) && $id != 0 && is_numeric($id))
@@ -81,7 +81,7 @@
   }
 
   //Função para realizar a exclusão de um contato
-  function excluirContato ($id)
+  function excluirCliente ($id)
   {
          
 

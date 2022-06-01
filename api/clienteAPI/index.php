@@ -90,6 +90,71 @@
 
   });
 
+//Endpoint Requisição para atualizar um contato, simulando o PUT
+$app->put('/clientes/{id}', function($request, $response, $args){
+    
+  //Recebe do header da requisição qual será o content type
+  $contentTypeHeader = $request->getHeaderLine('Content-Type');
+  //Cria um array ois dependendo do content-type temos mais informações separadas
+  $contentType = explode(';', $contentTypeHeader);
+
+  if(is_numeric($args['id']))
+  {
+    
+    
+    //Recebe o id enviado no Endpoint atraves da vareavel ID
+    $id = $args['id'];  
+    
+    echo($id);
+     
+
+    switch ($contentType[0]) {
+      case 'application/json':
+         //import da controller de contatos, que fará a busca de dados
+         require_once('../modulo/config.php');
+         require_once('../cliente/controller/controllerClientes.php');
+
+        //chama a função para buscar a foto que ja está salva no banco de dados
+        
+
+        $dadosBody = $request->getParsedBody();
+          
+        //Cria um array com toods os dados couns e do do arquivo que será enviado para o servidor
+        $arrayDados = array( $dadosBody,                               
+                            "id" => $id                              
+        );
+       
+        
+        $resposta = atualizarCliente($arrayDados);
+
+        if (is_bool($resposta) && $resposta == true) {
+
+          return $response   ->withStatus(200)
+                              ->withHeader('Content-Type', 'application/json')
+                              ->write('{"message":"Contato atualizado com sucesso"}');
+
+        } elseif (is_array($resposta) && $resposta['idErro'])        
+        {
+          $dadosJSON = createJSON($resposta);
+
+          return $response   ->withStatus(400)
+                              ->withHeader('Content-Type', 'application/json')
+                              ->write('{"message":"Erro ao atualizar contato."},
+                              "Erro": '.$dadosJSON.' }');
+          break;      
+        
+        
+      } 
+    }
+  }else
+  {
+    //retorna um erro que significa que o cliente passou os dados errados
+    return  $response   ->withStatus(404)
+                        ->withHeader('Content-Type', 'application/json')
+                        ->write('{"message" : "É obrigatorio informar um ID com formato valido (número)"}');
+  }
+});
+
   //Executa todos os Endpoint
   $app->run();
   
