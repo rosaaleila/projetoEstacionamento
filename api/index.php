@@ -22,6 +22,8 @@
 
   //Recebe a URL digitada na requisição
   $urlHTTP = (string) $_GET['url'];
+  var_dump($urlHTTP);
+  die;
   
   //Converte a URL requisitadaa em um array para dividir as opçoes de busca, que é separada pelo "/"
   $url = explode('/', $urlHTTP);
@@ -29,13 +31,12 @@
   //o utl vem um array então tem que dar no indice 0
   // verifica qual API será encaminhada a requisição (contatos, estados, etc)
   switch (strtoupper($url[0])) {
-    case 'CONTATOS':
-      require_once('contatosAPI/index.php');
+    case 'CLIENTE':
+      echo("teste2");
+      // require_once('clienteAPI/index.php');
       break;
     
-    case 'ESTADOS':
-      require_once('estadosAPI/index.php');
-      break;
+    
   }
 
 
