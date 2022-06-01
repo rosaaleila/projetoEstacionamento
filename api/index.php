@@ -28,7 +28,7 @@
   //o utl vem um array então tem que dar no indice 0
   // verifica qual API será encaminhada a requisição (contatos, estados, etc)
   switch (strtoupper($url[0])) {
-    case 'CLIENTE':
+    case 'CLIENTES':
       require_once('clienteAPI/index.php');
       break;
     

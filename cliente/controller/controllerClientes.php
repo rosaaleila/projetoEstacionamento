@@ -13,7 +13,7 @@
             "documento"  => $dadosCliente[0]['documento']          
       );
 
-      require_once(SRC.'model/bd/cliente.php');
+      require_once(SRC.'cliente/model/bd/cliente.php');
       if(insertCliente($arrayDados))
                        return true;
                     else
@@ -59,7 +59,7 @@
                       );
 
                       //import do arquivo de modelagem para manipular o BD
-                      require_once(SRC.'model/bd/cliente.php');
+                      require_once(SRC.'cliente/model/bd/cliente.php');
                       //Chama a função que fará o insert no BD (esta função esta na model)
                       if(updateCliente($arrayDados))
                       {                          
@@ -89,7 +89,7 @@
       if($id != 0 && !empty($id) && is_numeric($id))
       {
           //import do arquivo de contato
-          require_once(SRC.'model/bd/cliente.php');
+          require_once(SRC.'cliente/model/bd/cliente.php');
           
           //import do arquivo de configurações do projeto
           require_once(SRC.'modulo/config.php');
@@ -117,7 +117,7 @@
   function listarCliente ()
   {
       //import do arquivo que vai buscar os dados no DB
-      require_once(SRC.'model/bd/cliente.php');
+      require_once(SRC.'cliente/model/bd/cliente.php');
       
       //chama a função que vai buscar os dados no BD
       $dados = listarAllClientes();
@@ -135,7 +135,7 @@
        if($id != 0 && !empty($id) && is_numeric($id))
        {
            //import do arquivo de contato
-          require_once(SRC.'model/bd/cliente.php');
+          require_once(SRC.'cliente/model/bd/cliente.php');
 
           //Chama a função na model que vai buscar no BD
           $dados = selectByIdCliente($id);

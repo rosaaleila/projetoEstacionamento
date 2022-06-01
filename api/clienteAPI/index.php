@@ -16,13 +16,37 @@
   */
 
   //import do arquivo autoload, que fará as instancias do slim
-  var_dump($_GET['url']);
-  die;
-
   require_once('vendor/autoload.php');  
 
   //Criando um objeto do slim chamado app, para coonfigurar os endpoints(rotas)
   $app = new \Slim\App();
+
+  $app->get('/clientes', function ($request, $response, $args) {
+
+    // importa do arquivo de configuracao
+    require_once('../modulo/config.php');
+    // import da controller de contatos, que fara a busca de dados
+    require_once('../cliente/controller/controllerClientes.php');
+
+    // solicita os dados para a controller
+    if ($dados = listarCliente()) {
+      // realiza a conversao do array de dados em formato json
+        if ($dadosJSON = createJSON($dados)) {
+            // caso exista dados, retornamos o status code e enviamos os dados em json
+            return $response
+                ->withStatus(200)
+                ->withHeader('Content-Type', 'application/json')
+                ->write($dadosJSON);
+        }
+    } else {
+        // retorna um status code caso a solicitacao dê errado
+        return $response
+            ->withStatus(404)
+            ->withHeader('Content-Type', 'application/json')
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+    }
+});
+
 
   //Endpoint Requisiçã para inserir um novo contato
   $app->post('/cliente', function($request, $response, $args){
@@ -32,7 +56,6 @@
     //Cria um array ois dependendo do content-type temos mais informações separadas
     $contentType = explode(';', $contentTypeHeader);
 
-    
     echo ($contentTypeHeader);
    
 
@@ -73,7 +96,5 @@
   //Executa todos os Endpoint
   $app->run();
   
-
-
 
 ?>
