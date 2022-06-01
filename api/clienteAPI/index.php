@@ -15,10 +15,11 @@
   * 
   */
 
-
   //import do arquivo autoload, que fará as instancias do slim
- 
-  require_once('../vendor/autoload.php');  
+  var_dump($_GET['url']);
+  die;
+
+  require_once('vendor/autoload.php');  
 
   //Criando um objeto do slim chamado app, para coonfigurar os endpoints(rotas)
   $app = new \Slim\App();
@@ -40,8 +41,6 @@
 
         //Recebe os dados enviado pelo corpo da requisição
         $dadosBody = $request->getParsedBody();   
-                        
-      
       
       //import da controller de contatos, que fará a busca de dados
       require_once('../modulo/config.php');

@@ -8,7 +8,7 @@
 
     
     
-    define('SRC', $_SERVER['DOCUMENT_ROOT'].'/estacionamento/projeto-estacionamento/');
+    define('SRC', $_SERVER['DOCUMENT_ROOT'].'/estacionamento/projetoEstacionamento/');
     
     /***********FUNÇÕES***************/
     //função para converter array para json 

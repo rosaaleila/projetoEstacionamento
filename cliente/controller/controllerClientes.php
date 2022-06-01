@@ -1,5 +1,7 @@
 <?php
 
+echo('teste');
+
   function inserirCliente ($dadosCliente){
 
     if(!empty($dadosCliente))

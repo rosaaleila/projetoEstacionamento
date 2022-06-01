@@ -7,23 +7,21 @@
    *Versão:1.0                                                                                                                                                                                    *
    *******************************************************************************************************/
   
-  
-  
-  
-  
-  //permite ativar quais endereços de sites que poderão fazer requisições na API (* libera para todos os sites)
-  header('Access-Control-Allow-Origin: *');
-  //permite ativar os métodos do protocolo HTTP que irão requisitar a API
-  header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-  //permite ativar o Content-type das requisições (formato de dados que será utilizado(JSON, XML,FORM/DATA,etc ))
-  header('Access-Control-Allow-Header: Content-Type');
-  //permite liberar quais content-type serão utilizados na API
-  header('Content-Type: application/json');
+    // permite ativar quais enderecos de sites que poderao fazer requisições na api (* = todos)
+    header('Access-Control-Allow-Origin: *');
+
+    // permite definir quais metodos serao aceitos pela api 
+    header('Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS');
+    
+    // permite ativar o content-type (formato de dados que sera utilizado (JSON, XML, FORM/DATA...)) das requisicoes 
+    header('Access-Control-Allow-Header: Content-Type');
+    
+    // permite definir quais os tipos de content type que serao aceitos 
+    header('Content-Type: application/json');
+
 
   //Recebe a URL digitada na requisição
   $urlHTTP = (string) $_GET['url'];
-  var_dump($urlHTTP);
-  die;
   
   //Converte a URL requisitadaa em um array para dividir as opçoes de busca, que é separada pelo "/"
   $url = explode('/', $urlHTTP);
