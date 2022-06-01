@@ -198,6 +198,65 @@
     }
   });
 
+  //Endpoit: Requisição para deletar um contato
+  $app->delete('/clientes/{id}', function($request, $response, $args){
+
+
+
+    if(is_numeric($args['id']))
+    {
+      require_once('../modulo/config.php');
+
+      require_once('../cliente/controller/controllerClientes.php');
+
+      //Recebe o id enviado no Endpoint atraves da vareavel ID
+      $id = $args['id'];
+
+      //Busca o nome da foto para ser excluida na coontroller
+      if($resposta = excluirCliente($id))
+      {       
+
+        
+        
+        if(is_bool($resposta) && $resposta == true)
+        {
+          return  $response   ->withStatus(200)
+                              ->withHeader('Content-Type', 'application/json')
+                              ->write('{"message" : "Registro excluido com sucesso"}');
+        }elseif(is_array($resposta) && isset($resposta['idErro']))
+        {
+          if($resposta['idErro'] == 5)
+          {
+            return  $response   ->withStatus(200)
+                                ->withHeader('Content-Type', 'application/json')
+                                ->write('{"message" : "Resgistro excluido com sucesso, porém houve um problema na exclusão da foto"}');
+          }else{
+
+          
+            $dadosJSON=createJSON($resposta);
+
+            return  $response ->withStatus(404)
+                              ->withHeader('Content-Type', 'application/json')
+                              ->write('{"message" : "Ouve um problema no processo de excluir",
+                                      "Erro" : '.$dadosJSON.'}');
+          }                          
+        }
+      }else
+      {
+        return  $response   ->withStatus(404)
+                            ->withHeader('Content-Type', 'application/json')
+                            ->write('{"message" : "O ID informado não existe na base de dados"}');
+      }
+    }else
+    {
+      return  $response   ->withStatus(404)
+                          ->withHeader('Content-Type', 'application/json')
+                          ->write('{"message" : "É obrigatorio informar um ID com formato valido (número)"}');
+    }
+    
+
+  });
+
   //Executa todos os Endpoint
   $app->run();
   

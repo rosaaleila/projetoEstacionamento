@@ -145,7 +145,7 @@
 
     }
 
-    function deleteCliente($idCliente)
+    function deleteCliente($id)
     {
 
         // abre a conexao com o BD
