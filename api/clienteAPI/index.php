@@ -48,16 +48,13 @@
 });
 
 
-  //Endpoint Requisiçã para inserir um novo contato
-  $app->post('/cliente', function($request, $response, $args){
+  //Endpoint Requisição para inserir um novo cliente
+  $app->post('/clientes', function($request, $response, $args){
     
     //Recebe do header da requisição qual será o content type
     $contentTypeHeader = $request->getHeaderLine('Content-Type');
     //Cria um array ois dependendo do content-type temos mais informações separadas
     $contentType = explode(';', $contentTypeHeader);
-
-    echo ($contentTypeHeader);
-   
 
     switch ($contentType[0]) {
       case 'application/json':
@@ -67,7 +64,7 @@
       
       //import da controller de contatos, que fará a busca de dados
       require_once('../modulo/config.php');
-      require_once('../controller/controllerClientes.php');
+      require_once('../cliente/controller/controllerClientes.php');
       
       $resposta = inserirCliente($dadosBody);
 

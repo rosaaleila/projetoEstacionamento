@@ -6,11 +6,11 @@
     if(!empty($dadosCliente))
     {
 
-      if(!empty($dadosCliente[0]['nome']) && !empty($dadosCliente[0]['documento']))
+      if(!empty($dadosCliente['nome']) && !empty($dadosCliente['documento']))
       {
         $arrayDados = array (
-          "nome"      => $dadosCliente[0]['nome'],
-            "documento"  => $dadosCliente[0]['documento']          
+          "nome"      => $dadosCliente['nome'],
+            "documento"  => $dadosCliente['documento']          
       );
 
       require_once(SRC.'cliente/model/bd/cliente.php');
@@ -40,7 +40,7 @@
       {
           //Validação de caixa vazia dos elementos nome, celular e email, 
           //pois são obrigatórios no BD
-          if(!empty($dadosCliente[0]['nome']) && !empty($dadosCliente[0]['documento']))
+          if(!empty($dadosCliente['nome']) && !empty($dadosCliente['documento']))
               {
                   //Validação para garantir que id seja válido
                   if(!empty($id) && $id != 0 && is_numeric($id))
