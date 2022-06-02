@@ -136,9 +136,9 @@
         //Monta o script para enviar para o BD
         $sql = "update tblPlano set
                         nome = '" . $dadosPlano['nome'] . "', 
-                        primeiraHora = '" . $dadosPlano['primeiraHora'] . "',
-                        horasAdicionais = '" . $dadosPlano['horasAdicionais'] . "', 
-                        diaria = '" . $dadosPlano['diaria'] . "', 
+                        primeiraHora = " . $dadosPlano['primeiraHora'] . ",
+                        horasAdicionais = " . $dadosPlano['horasAdicionais'] . ", 
+                        diaria = " . $dadosPlano['diaria'] . " 
                         where id =" . $dadosPlano['id'];
 
         // validação para verificar se o script sql está correto

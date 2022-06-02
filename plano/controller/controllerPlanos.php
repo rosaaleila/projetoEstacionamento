@@ -41,13 +41,12 @@
       {
           //Validação de caixa vazia dos elementos nome, celular e email, 
           //pois são obrigatórios no BD
-          if(!empty($dadosPlano['nome']) && !empty($dadosPlano['primeiraHora']) && !empty($dadosPlano['horasAdicionais']) && !empty($dadosPlano['diaria']))
+          if(!empty($dadosPlano[0]['nome']) && !empty($dadosPlano[0]['primeiraHora']) && !empty($dadosPlano[0]['horasAdicionais']) && !empty($dadosPlano[0]['diaria']))
               {
                   //Validação para garantir que id seja válido
                   if(!empty($id) && $id != 0 && is_numeric($id))
                   {
                       
-
                       //Criação do array de dados que será encaminhado a model
                       //para inserir no BD, é importante criar este array conforme
                       //as necessidades de manipulação do BD.
@@ -61,7 +60,6 @@
                           "diaria" => $dadosPlano[0]['diaria']
                       );
 
-                      
                       //import do arquivo de modelagem para manipular o BD
                       require_once(SRC.'plano/model/bd/plano.php');
                       //Chama a função que fará o insert no BD (esta função esta na model)
