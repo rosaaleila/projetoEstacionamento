@@ -14,7 +14,7 @@
       );
 
       require_once(SRC.'cliente/model/bd/emailCliente.php');
-      if(insertCliente($arrayDados))
+      if(insertEmailCliente($arrayDados))
                        return true;
                     else
                         return array('idErro'  => 1, 
@@ -61,7 +61,7 @@
                       //import do arquivo de modelagem para manipular o BD
                       require_once(SRC.'cliente/model/bd/emailCliente.php');
                       //Chama a função que fará o insert no BD (esta função esta na model)
-                      if(updateCliente($arrayDados))
+                      if(updateEmailCliente($arrayDados))
                       {                          
                           return true;
                       }
@@ -95,7 +95,7 @@
           require_once(SRC.'modulo/config.php');
           
           //Chama a função da model e valida se o retorno foi verdadeiro ou false
-          if (deleteCliente($id))
+          if (deleteEmailCliente($id))
           {
               
              return true;  

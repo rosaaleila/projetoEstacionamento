@@ -81,7 +81,7 @@
 
     }
 
-    function selectByIdCliente($id)
+    function selectByIdEmailCliente($id)
     {
 
         // abre a conexao com o BD
@@ -117,7 +117,7 @@
 
     }
 
-    function updateCliente($dadosCliente)
+    function updateEmailCliente($dadosCliente)
     {
 
         $status = (bool) false;
@@ -145,7 +145,7 @@
 
     }
 
-    function deleteCliente($id)
+    function deleteEmailCliente($id)
     {
 
         // abre a conexao com o BD
