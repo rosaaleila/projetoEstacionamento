@@ -39,6 +39,10 @@
     case 'TELEFONECLIENTES':
       require_once('telefoneCliente/index.php');
       break;
+
+    case 'VEICULOS':
+      require_once('veiculoAPI/index.php');
+      break;
   }
 
 

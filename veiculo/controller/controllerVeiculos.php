@@ -59,7 +59,7 @@
                       );
 
                       //import do arquivo de modelagem para manipular o BD
-                      require_once(SRC.'veiculo/model/bd/cliente.php');
+                      require_once(SRC.'veiculo/model/bd/veiculo.php');
                       //Chama a função que fará o insert no BD (esta função esta na model)
                       if(updateVeiculo($arrayDados))
                       {                          
@@ -95,7 +95,7 @@
           require_once(SRC.'modulo/config.php');
           
           //Chama a função da model e valida se o retorno foi verdadeiro ou false
-          if (deleteCliente($id))
+          if (deleteVeiculo($id))
           {
               
              return true;  
@@ -129,7 +129,7 @@
   }
 
   //Função para buscar um contato através do id do registro
-  function buscarVeiculos($id)
+  function buscarVeiculo($id)
   {
        //Validação para verificar se id contém um numero válido
        if($id != 0 && !empty($id) && is_numeric($id))
