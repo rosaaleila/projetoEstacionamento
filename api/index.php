@@ -44,12 +44,16 @@
       require_once('veiculoAPI/index.php');
       break;
 
-    case 'SETOR':
+    case 'SETORES':
       require_once('setorAPI/index.php');
       break;
     
     case 'DIAS':
       require_once('diaAPI/index.php');
+      break;
+    
+    case 'PLANOS':
+      require_once('planoAPI/index.php');
       break;
   }
 
