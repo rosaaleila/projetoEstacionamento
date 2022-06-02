@@ -2,7 +2,8 @@
 
  
     // import do arquivo que estavbece a conexão com o BD
-    require_once('conexaoMysql.php');
+    require_once('../modulo/conexaoMySql.php');
+
 
     //Função para realizar o insert no BD
     function insertEmailCliente($dadosCliente)

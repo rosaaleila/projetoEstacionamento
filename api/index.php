@@ -43,6 +43,14 @@
     case 'VEICULOS':
       require_once('veiculoAPI/index.php');
       break;
+
+    case 'SETOR':
+      require_once('setorAPI/index.php');
+      break;
+    
+    case 'DIAS':
+      require_once('diaAPI/index.php');
+      break;
   }
 
 
