@@ -32,9 +32,13 @@
       require_once('clienteAPI/index.php');
       break;
     
-      case 'EMAILCLIENTES':
-        require_once('emailCliente/index.php');
-        break;
+    case 'EMAILCLIENTES':
+      require_once('emailCliente/index.php');
+      break;
+    
+    case 'TELEFONECLIENTES':
+      require_once('telefoneCliente/index.php');
+      break;
   }
 
 

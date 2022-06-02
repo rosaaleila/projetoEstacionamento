@@ -153,7 +153,7 @@
 
         $status = (bool) false;
 
-        $sql = "delete from tblTelefone_ClienteTelefone_Cliente where id =" . $id;
+        $sql = "delete from tblTelefone_Cliente where id =" . $id;
 
         // validação para verificar se o script sql está correto para executá-lo
         if (mysqli_query($conexao, $sql)) {
