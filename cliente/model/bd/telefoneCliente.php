@@ -5,7 +5,7 @@
     require_once('conexaoMysql.php');
 
     //Função para realizar o insert no BD
-    function insertCliente($dadosCliente)
+    function insertTelefoneCliente($dadosCliente)
     {
         //declaração de variavel para utilizar no return desta função
         $statusResposta = (boolean) false;
@@ -14,13 +14,13 @@
         $conexao = conexaoMysql();
 
         //Monta o script para enviar para o BD
-        $sql = "insert into tblCliente 
-                    (nome, 
-                     documento                     
+        $sql = "insert into tblTelefone_Cliente 
+                    (telefone, 
+                     idCliente                     
                      )
                 values 
-                    ('".$dadosCliente['nome']."',                     
-                    '".$dadosCliente['documento']."'
+                    ('".$dadosCliente['telefone']."',                     
+                    '".$dadosCliente['idCliente']."'
                 );";
 
        
@@ -40,14 +40,14 @@
 
     }
 
-    function listarAllClientes()
+    function listarAllTelefoneClientes()
     {
 
         // abre a conexao com o BD
         $conexao = conexaoMysql();
 
         // script para listar todos os dados do BD
-        $sql = "select * from tblcliente order by id desc;";
+        $sql = "select * from tblTelefone_Cliente order by id desc;";
 
         // executa o script sql no BD e guarda o retorno dos dados (se houver)
         $result = mysqli_query($conexao, $sql);
@@ -62,8 +62,8 @@
 
                 $arrayDados[$cont] = array(
                     "id"        =>  $rsDados['id'],
-                    "nome"      =>  $rsDados['nome'],
-                    "documento"  =>  $rsDados['documento']
+                    "telefone"      =>  $rsDados['telefone'],
+                    "idCliente"  =>  $rsDados['idCliente']
                 );
                 $cont++;
 
@@ -81,14 +81,14 @@
 
     }
 
-    function selectByIdCliente($id)
+    function selectByIdTelefoneCliente($id)
     {
 
         // abre a conexao com o BD
         $conexao = conexaoMysql();
 
         // script para listar todos os dados do BD em ordem decrescente
-        $sql = "select * from tblcliente where id = " . $id;
+        $sql = "select * from tblTelefone_Cliente where id = " . $id;
 
         // executa o script sql no BD e guarda o retorno dos dados (se houver)
         $result = mysqli_query($conexao, $sql);
@@ -101,8 +101,8 @@
 
                 $arrayDados = array(
                     "id"        =>  $rsDados['id'],
-                    "nome"      =>  $rsDados['nome'],
-                    "documento"  =>  $rsDados['documento']
+                    "telefone"      =>  $rsDados['telefone'],
+                    "idCliente"  =>  $rsDados['idCliente']
                 );
                 
                 return $arrayDados;
@@ -117,7 +117,7 @@
 
     }
 
-    function updateCliente($dadosCliente)
+    function updateTelefoneCliente($dadosCliente)
     {
 
         $status = (bool) false;
@@ -126,9 +126,9 @@
         $conexao = conexaoMysql();
 
         //Monta o script para enviar para o BD
-        $sql = "update tblcliente set
-                        nome = '" . $dadosCliente['nome'] . "', 
-                        documento = '" . $dadosCliente['documento'] . "'
+        $sql = "update tblTelefone_Cliente set
+                        telefone = '" . $dadosCliente['telefone'] . "', 
+                        idCliente = '" . $dadosCliente['idCliente'] . "'
                         where id =" . $dadosCliente['id'];
 
         // validação para verificar se o script sql está correto
@@ -145,7 +145,7 @@
 
     }
 
-    function deleteCliente($id)
+    function deleteTelefoneCliente($id)
     {
 
         // abre a conexao com o BD
@@ -153,7 +153,7 @@
 
         $status = (bool) false;
 
-        $sql = "delete from tblcliente where id =" . $id;
+        $sql = "delete from tblTelefone_ClienteTelefone_Cliente where id =" . $id;
 
         // validação para verificar se o script sql está correto para executá-lo
         if (mysqli_query($conexao, $sql)) {
