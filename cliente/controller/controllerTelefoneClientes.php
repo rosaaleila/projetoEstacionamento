@@ -1,35 +1,33 @@
 <?php
 
 
-  function inserirCliente ($dadosCliente){
+  function inserirTelefoneCliente ($dadosCliente){
 
     if(!empty($dadosCliente))
     {
 
-      if(!empty($dadosCliente['nome']) && !empty($dadosCliente['documento']))
+      if(!empty($dadosCliente['telefone']) && !empty($dadosCliente['idCliente']))
       {
         $arrayDados = array (
-          "nome"      => $dadosCliente['nome'],
-            "documento"  => $dadosCliente['documento']          
+            "telefone"      => $dadosCliente['telefone'],
+            "idCliente"  => $dadosCliente['idCliente']          
       );
 
-      require_once(SRC.'cliente/model/bd/cliente.php');
-      if(insertCliente($arrayDados))
+      require_once(SRC.'cliente/model/bd/telefoneCliente.php');
+      if(insertTelefoneCliente($arrayDados))
                        return true;
-                    else
-                        return array('idErro'  => 1, 
-                                     'message' => 'Não foi possivel inserir os dados no Banco de Dados');
-      }else
-      return array('idErro'   => 2,
-                   'message'  => 'Existem campos obrigatório que não foram preenchidos.');
+    else
+        return array('idErro'  => 1, 
+            'message' => 'Não foi possivel inserir os dados no Banco de Dados');
+      } else
+            return array('idErro'   => 2,
+                'message'  => 'Existem campos obrigatório que não foram preenchidos.');
     }
 
   }
 
-
-
   //Função para receber dados da View e encaminhar para a model (Atualizar)
-  function atualizarCliente ($dadosCliente)
+  function atualizarTelefoneCliente ($dadosCliente)
   {
       
       //Recebe o id enviado pelo arrayDados
@@ -40,7 +38,7 @@
       {
           //Validação de caixa vazia dos elementos nome, celular e email, 
           //pois são obrigatórios no BD
-          if(!empty($dadosCliente[0]['nome']) && !empty($dadosCliente[0]['documento']))
+          if(!empty($dadosCliente[0]['telefone']) && !empty($dadosCliente[0]['idCliente']))
               {
                   //Validação para garantir que id seja válido
                   if(!empty($id) && $id != 0 && is_numeric($id))
@@ -54,14 +52,14 @@
                           //do BD
                       $arrayDados = array (
                           "id"        => $id,
-                          "nome"      => $dadosCliente[0]['nome'],
-                          "documento" => $dadosCliente[0]['documento']
+                          "telefone"      => $dadosCliente[0]['telefone'],
+                          "idCliente" => $dadosCliente[0]['idCliente']
                       );
 
                       //import do arquivo de modelagem para manipular o BD
-                      require_once(SRC.'cliente/model/bd/cliente.php');
+                      require_once(SRC.'cliente/model/bd/telefoneCliente.php');
                       //Chama a função que fará o insert no BD (esta função esta na model)
-                      if(updateCliente($arrayDados))
+                      if(updateTelefoneCliente($arrayDados))
                       {                          
                           return true;
                       }
@@ -81,7 +79,7 @@
   }
 
   //Função para realizar a exclusão de um contato
-  function excluirCliente ($id)
+  function excluirTelefoneCliente ($id)
   {
          
 
@@ -89,13 +87,13 @@
       if($id != 0 && !empty($id) && is_numeric($id))
       {
           //import do arquivo de contato
-          require_once(SRC.'cliente/model/bd/cliente.php');
+          require_once(SRC.'cliente/model/bd/telefoneCliente.php');
           
           //import do arquivo de configurações do projeto
           require_once(SRC.'modulo/config.php');
           
           //Chama a função da model e valida se o retorno foi verdadeiro ou false
-          if (deleteCliente($id))
+          if (deleteTelefoneCliente($id))
           {
               
              return true;  
@@ -114,13 +112,13 @@
 
   //Função para solicitar os dados da model e encaminhar a lista 
   //de contatos para a View
-  function listarCliente ()
+  function listarTelefoneCliente ()
   {
       //import do arquivo que vai buscar os dados no DB
-      require_once(SRC.'cliente/model/bd/cliente.php');
+      require_once(SRC.'cliente/model/bd/telefoneCliente.php');
       
       //chama a função que vai buscar os dados no BD
-      $dados = listarAllClientes();
+      $dados = listarAllTelefoneClientes();
 
       if(!empty($dados))
           return $dados;
@@ -129,16 +127,16 @@
   }
 
   //Função para buscar um contato através do id do registro
-  function buscarCliente($id)
+  function buscarTelefoneCliente($id)
   {
        //Validação para verificar se id contém um numero válido
        if($id != 0 && !empty($id) && is_numeric($id))
        {
            //import do arquivo de contato
-          require_once(SRC.'cliente/model/bd/cliente.php');
+          require_once(SRC.'cliente/model/bd/telefoneCliente.php');
 
           //Chama a função na model que vai buscar no BD
-          $dados = selectByIdCliente($id);
+          $dados = selectByIdTelefoneCliente($id);
 
           //Valida se existem dados para serem devolvidos
           if(!empty($dados))
