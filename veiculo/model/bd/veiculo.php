@@ -176,3 +176,38 @@ function deleteVeiculo($id)
 
     return $status;
 }
+
+// Função para selecionar um registro no BD, pelo seu ID
+function selectByPlaca($placa)
+{
+
+    // Abre a conexao com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD em ordem decrescente
+    $sql = "select * from tblVeiculo where placa = '" . $placa . "'";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros 
+    if ($result) {
+
+        // Convertendo os dados do BD em array
+        if ($rsDados = mysqli_fetch_assoc($result)) {
+
+            $arrayDados = array(
+                "id"        =>  $rsDados['id'],
+                "placa"      =>  $rsDados['placa'],
+                "idCliente"  =>  $rsDados['idCliente']
+            );
+
+            return $arrayDados;
+        } else {
+            return false;
+        }
+
+        // Fecha a conexao com o BD
+        fecharConexaoMysql($conexao);
+    }
+}

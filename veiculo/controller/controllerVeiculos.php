@@ -159,3 +159,19 @@ function buscarVeiculo($id)
             'message'  => 'Não é possível buscar um registro sem informar um id válido.'
         );
 }
+
+function buscarPlaca($placa) {
+
+    // Import do arquivo de Model
+    require_once(SRC . 'veiculo/model/bd/veiculo.php');
+
+    // Solicita a função que vai buscar os dados no BD e armazena o retorno
+    $dados = selectByPlaca($placa);
+
+    // Verifica se os dados tragos pela Model estão vazios para então retorná-los
+    if (!empty($dados))
+        return $dados;
+    else
+        return false;
+
+}
