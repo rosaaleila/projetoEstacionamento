@@ -1,80 +1,85 @@
 <?php
 
+/***********************************************************************
+ * Objetivo: Arquivo responsável por manipular os dados dentro do BD
+ *          (insert, update, select e delete).
+ * Autora: Leila
+ * Data: 02/06/2022
+ * Versão: 1.0
+ ***********************************************************************/
+
+
 require_once('../modulo/conexaoMySql.php');
 
-    function listarAllDias()
-    {
+// Função para listar todos os registros no BD
+function listarAllDias()
+{
 
-        // abre a conexao com o BD
-        $conexao = conexaoMysql();
+    // Abre a conexao com o BD
+    $conexao = conexaoMysql();
 
-        // script para listar todos os dados do BD
-        $sql = "select * from tblDia order by id desc;";
+    // Script para listar todos os dados do BD
+    $sql = "select * from tblDia order by id desc;";
 
-        // executa o script sql no BD e guarda o retorno dos dados (se houver)
-        $result = mysqli_query($conexao, $sql);
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
 
-        // valida se o BD retornou registros 
-        if ($result) {
+    // Valida se o BD retornou registros 
+    if ($result) {
 
-            $cont = 0;
+        $cont = 0;
 
-            while ($rsDados = mysqli_fetch_assoc($result)) // é o mesmo que criar um cont, converter para array e guardar a qtd de itens
-            {
-
-                $arrayDados[$cont] = array(
-                    "id"        =>  $rsDados['id'],
-                    "nome"      =>  $rsDados['nome']
-                );
-                $cont++;
-
-            }
-
-            // solicita o fechamento da conexao com o BD
-            fecharConexaoMysql($conexao);
-            
-            if (isset($arrayDados))
-                return $arrayDados;
-            else
-                return false;
-
+        // Converte os dados do BD em array
+        while ($rsDados = mysqli_fetch_assoc($result))
+        {
+            $arrayDados[$cont] = array(
+                "id"        =>  $rsDados['id'],
+                "nome"      =>  $rsDados['nome']
+            );
+            $cont++;
         }
 
+        // Fecha a conexão com o BD
+        fecharConexaoMysql($conexao);
+
+        // O script apenas foi um sucesso quando a variável arrayDados existir
+        if (isset($arrayDados))
+            return $arrayDados;
+        else
+            return false;
     }
+}
 
-    function selectByIdDia($id)
-    {
+// Função para selecionar um registro no BD, pelo seu ID
+function selectByIdDia($id)
+{
 
-        // abre a conexao com o BD
-        $conexao = conexaoMysql();
+    // Abre a conexao com o BD
+    $conexao = conexaoMysql();
 
-        // script para listar todos os dados do BD em ordem decrescente
-        $sql = "select * from tblDia where id = " . $id;
+    // Script para listar todos os dados do BD em ordem decrescente
+    $sql = "select * from tblDia where id = " . $id;
 
-        // executa o script sql no BD e guarda o retorno dos dados (se houver)
-        $result = mysqli_query($conexao, $sql);
+    // Executa o script sql no BD e guarda o retorno dos dados (se houver)
+    $result = mysqli_query($conexao, $sql);
 
-        // valida se o BD retornou registros 
-        if ($result) {
+    // Valida se o BD retornou registros 
+    if ($result) {
 
-            if ($rsDados = mysqli_fetch_assoc($result)) 
-            {
+        // Convertendo os dados do BD em array
+        if ($rsDados = mysqli_fetch_assoc($result)) {
 
-                $arrayDados = array(
-                    "id"        =>  $rsDados['id'],
-                    "nome"      =>  $rsDados['nome']
-                );
-                
-                return $arrayDados;
-            } else {
-                return false;
-            }
+            $arrayDados = array(
+                "id"        =>  $rsDados['id'],
+                "nome"      =>  $rsDados['nome']
+            );
 
-            // solicita o fechamento da conexao com o BD
-            fecharConexaoMysql($conexao);
-
+            return $arrayDados;
+        } else {
+            return false;
         }
 
+        // Fecha a conexao com o BD
+        fecharConexaoMysql($conexao);
     }
-    
-?>
+}
