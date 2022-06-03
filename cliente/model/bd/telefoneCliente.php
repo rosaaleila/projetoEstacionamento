@@ -1,175 +1,176 @@
-<?php 
+<?php
 
- 
-    // import do arquivo que estavbece a conexão com o BD
-    require_once('../modulo/conexaoMySql.php');
+/***********************************************************************
+ * Objetivo: Arquivo responsável por manipular os dados dentro do BD
+ *          (insert, update, select e delete).
+ * Autora: Leila
+ * Data: 01/06/2022
+ * Versão: 1.0
+ ***********************************************************************/
 
+// Import do arquivo para estabecer a conexão com o BD
+require_once('../modulo/conexaoMySql.php');
 
-    //Função para realizar o insert no BD
-    function insertTelefoneCliente($dadosCliente)
-    {
-        //declaração de variavel para utilizar no return desta função
-        $statusResposta = (boolean) false;
+// Função para realizar o insert de um registro no BD
+function insertTelefoneCliente($dadosCliente)
+{
+    // Declaração de variavel para se utilizar no return
+    $statusResposta = (bool) false;
 
-        //Abre aconexão com o BD
-        $conexao = conexaoMysql();
+    // Abre aconexão com o BD
+    $conexao = conexaoMysql();
 
-        //Monta o script para enviar para o BD
-        $sql = "insert into tblTelefone_Cliente 
+    // Script para adição de registro
+    $sql = "insert into tblTelefone_Cliente 
                     (telefone, 
                      idCliente                     
                      )
                 values 
-                    ('".$dadosCliente['telefone']."',                     
-                    '".$dadosCliente['idCliente']."'
+                    ('" . $dadosCliente['telefone'] . "',                     
+                    '" . $dadosCliente['idCliente'] . "'
                 );";
 
-       
-        //Executa o scriipt no BD
-            //Validação para veririficar se o script sql esta correto
-        if (mysqli_query($conexao, $sql))
-        {   
-            //Validação para verificar se uma linha foi acrescentada no DB
-            if(mysqli_affected_rows($conexao))
-                $statusResposta = true;
+
+    //Validação para verificar se o script SQL está correto
+    if (mysqli_query($conexao, $sql)) {
+
+        // Validação para verificar se uma linha foi acrescentada no DB
+        if (mysqli_affected_rows($conexao))
+            $statusResposta = true;
+    }
+
+    // Fecha a conexão com o BD
+    fecharConexaoMysql($conexao);
+
+    return $statusResposta;
+}
+
+// Função para listar todos os registros no BD
+function listarAllTelefoneClientes()
+{
+
+    // Abre aconexão com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD
+    $sql = "select * from tblTelefone_Cliente order by id desc;";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros 
+    if ($result) {
+
+        $cont = 0;
+
+        // Converte os dados do BD em array
+        while ($rsDados = mysqli_fetch_assoc($result)) {
+            $arrayDados[$cont] = array(
+                "id"        =>  $rsDados['id'],
+                "telefone"      =>  $rsDados['telefone'],
+                "idCliente"  =>  $rsDados['idCliente']
+            );
+            $cont++;
         }
-        
-        //Solicita o fechamento da conexão com o BD
+
+        // solicita o fechamento da conexao com o BD
         fecharConexaoMysql($conexao);
 
-        return $statusResposta;
-
+        if (isset($arrayDados))
+            return $arrayDados;
+        else
+            return false;
     }
+}
 
-    function listarAllTelefoneClientes()
-    {
+// Função para selecionar um registro no BD, pelo seu ID
+function selectByIdTelefoneCliente($id)
+{
 
-        // abre a conexao com o BD
-        $conexao = conexaoMysql();
+    // Abre a conexao com o BD
+    $conexao = conexaoMysql();
 
-        // script para listar todos os dados do BD
-        $sql = "select * from tblTelefone_Cliente order by id desc;";
+    // Script para listar todos os dados do BD, em ordem decrescente
+    $sql = "select * from tblTelefone_Cliente where id = " . $id;
 
-        // executa o script sql no BD e guarda o retorno dos dados (se houver)
-        $result = mysqli_query($conexao, $sql);
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
 
-        // valida se o BD retornou registros 
-        if ($result) {
+    // Valida se o BD retornou registros 
+    if ($result) {
 
-            $cont = 0;
+        // Convertendo os dados do BD em array
+        if ($rsDados = mysqli_fetch_assoc($result)) {
 
-            while ($rsDados = mysqli_fetch_assoc($result)) // é o mesmo que criar um cont, converter para array e guardar a qtd de itens
-            {
+            $arrayDados = array(
+                "id"        =>  $rsDados['id'],
+                "telefone"      =>  $rsDados['telefone'],
+                "idCliente"  =>  $rsDados['idCliente']
+            );
 
-                $arrayDados[$cont] = array(
-                    "id"        =>  $rsDados['id'],
-                    "telefone"      =>  $rsDados['telefone'],
-                    "idCliente"  =>  $rsDados['idCliente']
-                );
-                $cont++;
-
-            }
-
-            // solicita o fechamento da conexao com o BD
-            fecharConexaoMysql($conexao);
-            
-            if (isset($arrayDados))
-                return $arrayDados;
-            else
-                return false;
-
+            return $arrayDados;
+        } else {
+            return false;
         }
 
+        // Fecha a conexão com o BD
+        fecharConexaoMysql($conexao);
     }
+}
 
-    function selectByIdTelefoneCliente($id)
-    {
+// Função para atualizar registro no BD
+function updateTelefoneCliente($dadosCliente)
+{
 
-        // abre a conexao com o BD
-        $conexao = conexaoMysql();
+    // Declaração de variavel para se utilizar no return
+    $status = (bool) false;
 
-        // script para listar todos os dados do BD em ordem decrescente
-        $sql = "select * from tblTelefone_Cliente where id = " . $id;
+    // Abre aconexão com o BD
+    $conexao = conexaoMysql();
 
-        // executa o script sql no BD e guarda o retorno dos dados (se houver)
-        $result = mysqli_query($conexao, $sql);
-
-        // valida se o BD retornou registros 
-        if ($result) {
-
-            if ($rsDados = mysqli_fetch_assoc($result)) 
-            {
-
-                $arrayDados = array(
-                    "id"        =>  $rsDados['id'],
-                    "telefone"      =>  $rsDados['telefone'],
-                    "idCliente"  =>  $rsDados['idCliente']
-                );
-                
-                return $arrayDados;
-            } else {
-                return false;
-            }
-
-            // solicita o fechamento da conexao com o BD
-            fecharConexaoMysql($conexao);
-
-        }
-
-    }
-
-    function updateTelefoneCliente($dadosCliente)
-    {
-
-        $status = (bool) false;
-
-        //Abre a conexão com o banco de dados
-        $conexao = conexaoMysql();
-
-        //Monta o script para enviar para o BD
-        $sql = "update tblTelefone_Cliente set
+    // Script para atualizar um registro através de seu id
+    $sql = "update tblTelefone_Cliente set
                         telefone = '" . $dadosCliente['telefone'] . "', 
                         idCliente = '" . $dadosCliente['idCliente'] . "'
                         where id =" . $dadosCliente['id'];
 
-        // validação para verificar se o script sql está correto
-        if (mysqli_query($conexao, $sql)) {
-            // validacao para verificar se uma linha foi acrescentada no BD
-            if (mysqli_affected_rows($conexao))
-                $status = true;
-        }
+    // Validação para verificar se o script sql está correto
+    if (mysqli_query($conexao, $sql)) {
 
-        // fecha a conexao com o BD
-        fecharConexaoMysql($conexao);
-
-        return $status;
-
+        // Validacao para verificar se uma linha foi acrescentada no BD
+        if (mysqli_affected_rows($conexao))
+            $status = true;
     }
 
-    function deleteTelefoneCliente($id)
-    {
+    // Fecha a conexão com o BD
+    fecharConexaoMysql($conexao);
 
-        // abre a conexao com o BD
-        $conexao = conexaoMySql();
+    return $status;
+}
 
-        $status = (bool) false;
+// Função para deletar registro no BD
+function deleteTelefoneCliente($id)
+{
 
-        $sql = "delete from tblTelefone_Cliente where id =" . $id;
+    // Abre a conexao com o BD
+    $conexao = conexaoMySql();
 
-        // validação para verificar se o script sql está correto para executá-lo
-        if (mysqli_query($conexao, $sql)) {
+    // Declaração de variavel para se utilizar no return
+    $status = (bool) false;
 
-            // validacao para verificar se uma linha foi acrescentada no BD
-            if (mysqli_affected_rows($conexao))
-                $status = true;
+    // Script para deletar um registro através de seu ID
+    $sql = "delete from tblTelefone_Cliente where id =" . $id;
 
-        }
+    // Validação para verificar se o script sql está correto para executá-lo
+    if (mysqli_query($conexao, $sql)) {
 
-        // fecha a conexao com o BD
-        fecharConexaoMysql($conexao);
-
-        return $status;
-
+        // Validacao para verificar se uma linha foi acrescentada no BD
+        if (mysqli_affected_rows($conexao))
+            $status = true;
     }
 
-?>
+    // Fecha a conexao com o BD
+    fecharConexaoMysql($conexao);
+
+    return $status;
+}
