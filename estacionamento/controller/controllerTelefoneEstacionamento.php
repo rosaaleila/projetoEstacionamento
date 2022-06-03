@@ -9,7 +9,7 @@
  ***********************************************************************/
 
 // Função para receber dados da View e encaminhar para a Model (função Insert)
-function inserirTelefoneEmail($dadosEstacionamento)
+function inserirTelefoneEstacionamento($dadosEstacionamento)
 {
 
     // Validação para verificar se o objeto está vazio

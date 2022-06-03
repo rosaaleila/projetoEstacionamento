@@ -21,15 +21,15 @@
   //Criando um objeto do slim chamado app, para coonfigurar os endpoints(rotas)
   $app = new \Slim\App();
 
-  $app->get('/telefoneclientes', function ($request, $response, $args) {
+  $app->get('/telefoneestacionamento', function ($request, $response, $args) {
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
     // import da controller de contatos, que fara a busca de dados
-    require_once('../cliente/controller/controllerTelefoneClientes.php');
+    require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
 
     // solicita os dados para a controller
-    if ($dados = listarTelefoneCliente()) {
+    if ($dados = listarTelefoneEstacionamento()) {
       // realiza a conversao do array de dados em formato json
         if ($dadosJSON = createJSON($dados)) {
             // caso exista dados, retornamos o status code e enviamos os dados em json
@@ -48,7 +48,7 @@
 });
 
   //Endpoint Requisição para listar contatos pelo id
-  $app->get('/telefoneclientes/{id}', function($request, $response, $args){
+  $app->get('/telefoneestacionamento/{id}', function($request, $response, $args){
     
     //Recebe o id do registro que devera ser retornado pela api
     //Esse ID está chegando pela varável criada no endpoint
@@ -56,9 +56,9 @@
      
      //import da controller de contatos, que fará a busca de dados
     require_once('../modulo/config.php');
-    require_once('../cliente/controller/controllerTelefoneClientes.php');
+    require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
     //solicita os dados para a controller
-    if($dados = buscarTelefoneCliente($id))
+    if($dados = buscarTelefoneEstacionamento($id))
     {
       if (!isset($dados['idErro'])) {
         
@@ -92,7 +92,7 @@
   });
 
   //Endpoint Requisição para inserir um novo cliente
-  $app->post('/telefoneclientes', function($request, $response, $args){
+  $app->post('/telefoneestacionamento', function($request, $response, $args){
     
     //Recebe do header da requisição qual será o content type
     $contentTypeHeader = $request->getHeaderLine('Content-Type');
@@ -107,9 +107,9 @@
       
       //import da controller de contatos, que fará a busca de dados
       require_once('../modulo/config.php');
-      require_once('../cliente/controller/controllerTelefoneClientes.php');
+      require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
       
-      $resposta = inserirTelefoneCliente($dadosBody);
+      $resposta = inserirTelefoneEstacionamento($dadosBody);
 
       if (is_bool($resposta) && $resposta == true) {
 
@@ -151,7 +151,7 @@
         case 'application/json':
           //import da controller de contatos, que fará a busca de dados
           require_once('../modulo/config.php');
-          require_once('../cliente/controller/controllerTelefoneClientes.php');
+          require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
 
           //chama a função para buscar a foto que ja está salva no banco de dados
           
@@ -163,7 +163,7 @@
                               "id" => $id                              
           );
         
-          $resposta = atualizarTelefoneCliente($arrayDados);
+          $resposta = atualizarTelefoneEstacionamento($arrayDados);
 
           if (is_bool($resposta) && $resposta == true) {
 
@@ -193,19 +193,19 @@
   });
 
   //Endpoit: Requisição para deletar um contato
-  $app->delete('/telefoneclientes/{id}', function($request, $response, $args){
+  $app->delete('/telefoneemail/{id}', function($request, $response, $args){
 
     if(is_numeric($args['id']))
     {
       require_once('../modulo/config.php');
 
-      require_once('../cliente/controller/controllerTelefoneClientes.php');
+      require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
 
       //Recebe o id enviado no Endpoint atraves da vareavel ID
       $id = $args['id'];
 
       //Busca o nome da foto para ser excluida na coontroller
-      if($resposta = excluirTelefoneCliente($id))
+      if($resposta = excluirTelefoneEstacionamento($id))
       {       
 
         if(is_bool($resposta) && $resposta == true)
