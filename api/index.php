@@ -63,4 +63,8 @@
     case 'ESTACIONAMENTOS':
       require_once('estacionamentoAPI/index.php');
       break;
+
+    case 'REGISTROS':
+      require_once('registroAPI/index.php');
+      break;
   }
