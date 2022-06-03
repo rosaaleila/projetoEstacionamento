@@ -29,7 +29,7 @@
     require_once('../vaga/controller/controllerVagas.php');
 
     // solicita os dados para a controller
-    if ($dados = listarCliente()) {
+    if ($dados = listarVaga()) {
       // realiza a conversao do array de dados em formato json
         if ($dadosJSON = createJSON($dados)) {
             // caso exista dados, retornamos o status code e enviamos os dados em json
@@ -146,9 +146,7 @@
       
       
       //Recebe o id enviado no Endpoint atraves da vareavel ID
-      $id = $args['id'];  
-      
-      echo($id);
+      $id = $args['id'];     
       
 
       switch ($contentType[0]) {

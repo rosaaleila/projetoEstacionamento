@@ -15,7 +15,7 @@ function inserirVaga($dadosVaga)
     if (!empty($dadosVaga)) {
 
         // Validação para verificar se o objeto contém os dados obrigatórios
-        if (!empty($dadosVaga['numero']) && !empty($dadosVaga['idSetor']) && !empty($dadosVaga['idEstacionamento']) && !empty($dadosVaga['idEstacionamento']) && !empty($dadosVaga['idPlano'])) {
+        if (!empty($dadosVaga['numero']) && !empty($dadosVaga['idSetor']) && !empty($dadosVaga['idEstacionamento']) && !empty($dadosVaga['idPlano'])) {
 
             // Criação do array de dados que será encaminhado para a Model
             $arrayDados = array(
@@ -47,6 +47,7 @@ function inserirVaga($dadosVaga)
 // Função para receber dados da View e encaminhar para a model (função Update)
 function atualizarVaga($dadosVaga)
 {
+    
 
     // Recebe o ID enviado pelo array de parâmetro
     $id = $dadosVaga['id'];
@@ -55,7 +56,7 @@ function atualizarVaga($dadosVaga)
     if (!empty($dadosVaga)) {
 
         // Validação para verificar se o objeto contém os dados obrigatórios
-        if (!empty($dadosVaga['numero']) && !empty($dadosVaga['idSetor']) && !empty($dadosVaga['idEstacionamento']) && !empty($dadosVaga['idEstacionamento']) && !empty($dadosVaga['idPlano'])) {
+        if (!empty($dadosVaga[0]['numero']) && !empty($dadosVaga[0]['idSetor']) && !empty($dadosVaga[0]['idEstacionamento']) && !empty($dadosVaga[0]['idPlano'])) {
 
             //Validação para verificar se o ID é válido
             if (!empty($id) && $id != 0 && is_numeric($id)) {

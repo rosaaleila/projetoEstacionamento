@@ -70,11 +70,11 @@ function listarAllVagas()
         // Converte os dados do BD em array
         while ($rsDados = mysqli_fetch_assoc($result)) {
             $arrayDados[$cont] = array(
-                "id"        =>  $rsDados['id'],
-                "numero"      =>  $rsDados['numero'],
-                "idSetor"     =>  $rsDados['idSetor'],
-                "idEstacionamento" =>  $rsDados['idEstacionamento'],
-                "idPlano"     =>  $rsDados['idPlano']                
+                "id"                =>  $rsDados['id'],
+                "numero"            =>  $rsDados['numero'],
+                "idSetor"           =>  $rsDados['idSetor'],
+                "idEstacionamento"  =>  $rsDados['idEstacionamento'],
+                "idPlano"           =>  $rsDados['idPlano']                
             );
             $cont++;
         }
