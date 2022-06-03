@@ -9,38 +9,35 @@
  ***********************************************************************/
 
 // Função para receber dados da View e encaminhar para a model (função Update)
-function atualizarEstacionamento($dadosEstacionamento)
+function atualizarFuncionamento($dadosFuncionamento)
 {
 
     // Recebe o ID enviado pelo array de parâmetro
-    $id = $dadosEstacionamento['id'];
+    $id = $dadosFuncionamento['id'];
 
     // Validação para verificar se o objeto está vazio
-    if (!empty($dadosEstacionamento)) {
+    if (!empty($dadosFuncionamento)) {
 
         // Validação para verificar se o objeto contém os dados obrigatórios
-        if (!empty($dadosEstacionamento[0]['nome']) && !empty($dadosEstacionamento[0]['logradouro']) && !empty($dadosEstacionamento[0]['numero']) && !empty($dadosEstacionamento[0]['bairro']) && !empty($dadosEstacionamento[0]['cep']) && !empty($dadosEstacionamento[0]['cidade']) && !empty($dadosEstacionamento[0]['estado'])) {
+        if (!empty($dadosFuncionamento[0]['horaAbertura']) && !empty($dadosFuncionamento[0]['horaFechamento']) && !empty($dadosFuncionamento[0]['idEstacionamento']) && !empty($dadosFuncionamento[0]['idDia'])) {
 
             //Validação para verificar se o ID é válido
             if (!empty($id) && $id != 0 && is_numeric($id)) {
 
                 // Criação do array de dados que será encaminhado para a Model
                 $arrayDados = array(
-                    "id"            =>  $id,
-                    "nome"          =>  $dadosEstacionamento['nome'],
-                    "logradouro"    =>  $dadosEstacionamento['logradouro'],
-                    "numero"        =>  $dadosEstacionamento['numero'],
-                    "cep"           =>  $dadosEstacionamento['cep'],
-                    "bairro"        =>  $dadosEstacionamento['bairro'],
-                    "cidade"        =>  $dadosEstacionamento['cidade'],
-                    "estado"        =>  $dadosEstacionamento['estado']
+                    "id"                =>  $id,
+                    "horaAbertura"      =>  $dadosFuncionamento[0]['horaAbertura'],
+                    "horaFechamento"    =>  $dadosFuncionamento[0]['horaFechamento'],
+                    "idEstacionamento"  =>  $dadosFuncionamento[0]['idEstacionamento'],
+                    "idDia"             =>  $dadosFuncionamento[0]['idDia']
                 );
 
                 // Import do arquivo de Model
-                require_once(SRC . 'estacionamento/model/bd/estacionamento.php');
+                require_once(SRC . 'funcionamento/model/bd/funcionamento.php');
 
                 // Chama e verifica sucesso da função da Model
-                if (updateEstacionamento($arrayDados)) {
+                if (updateFuncionamento($arrayDados)) {
                     return true;
                 } else
                     return array(
@@ -61,14 +58,14 @@ function atualizarEstacionamento($dadosEstacionamento)
 }
 
 // Função para solicitar os dados da Model e encaminhar a lista de registros para a View
-function listarEstacionamento()
+function listarFuncionamento()
 {
 
     // Import do arquivo de Model
-    require_once(SRC . 'estacionamento/model/bd/estacionamento.php');
+    require_once(SRC . 'funcionamento/model/bd/funcionamento.php');
 
     // Solicita a função que vai buscar os dados no BD e armazena o retorno
-    $dados = listarAllEstacionamentos();
+    $dados = listarAllFuncionamentos();
 
     // Verifica se os dados tragos pela Model estão vazios para então retorná-los
     if (!empty($dados))
@@ -78,17 +75,17 @@ function listarEstacionamento()
 }
 
 // Função para buscar um registro através do seu ID
-function buscarEstacionamento($id)
+function buscarFuncionamento($id)
 {
 
     // Validação para verificar se o ID é válido
     if ($id != 0 && !empty($id) && is_numeric($id)) {
 
         // Import do arquivo de Model
-        require_once(SRC . 'estacionamento/model/bd/estacionamento.php');
+        require_once(SRC . 'funcionamento/model/bd/funcionamento.php');
 
         // Solicita a função que vai buscar os dados no BD e armazena o retorno
-        $dados = selectByIdEstacionamento($id);
+        $dados = selectByIdFuncionamento($id);
 
         // Verifica se os dados tragos pela Model estão vazios para então retorná-los
         if (!empty($dados))
