@@ -21,15 +21,15 @@
   //Criando um objeto do slim chamado app, para coonfigurar os endpoints(rotas)
   $app = new \Slim\App();
 
-  $app->get('/emailclientes', function ($request, $response, $args) {
+  $app->get('/emailestacionamento', function ($request, $response, $args) {
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
     // import da controller de contatos, que fara a busca de dados
-    require_once('../cliente/controller/controllerEmailClientes.php');
+    require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
 
     // solicita os dados para a controller
-    if ($dados = listarEmailCliente()) {
+    if ($dados = listarEmailEstacionamento()) {
       // realiza a conversao do array de dados em formato json
         if ($dadosJSON = createJSON($dados)) {
             // caso exista dados, retornamos o status code e enviamos os dados em json
@@ -48,7 +48,7 @@
 });
 
   //Endpoint Requisição para listar contatos pelo id
-  $app->get('/emailclientes/{id}', function($request, $response, $args){
+  $app->get('/emailestacionamento/{id}', function($request, $response, $args){
     
     //Recebe o id do registro que devera ser retornado pela api
     //Esse ID está chegando pela varável criada no endpoint
@@ -56,9 +56,9 @@
      
      //import da controller de contatos, que fará a busca de dados
     require_once('../modulo/config.php');
-    require_once('../cliente/controller/controllerEmailClientes.php');
+    require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
     //solicita os dados para a controller
-    if($dados = buscarEmailCliente($id))
+    if($dados = buscarEmailEstacionamento($id))
     {
       if (!isset($dados['idErro'])) {
         
@@ -92,7 +92,7 @@
   });
 
   //Endpoint Requisição para inserir um novo cliente
-  $app->post('/emailclientes', function($request, $response, $args){
+  $app->post('/emailestacionamento', function($request, $response, $args){
     
     //Recebe do header da requisição qual será o content type
     $contentTypeHeader = $request->getHeaderLine('Content-Type');
@@ -107,9 +107,9 @@
       
       //import da controller de contatos, que fará a busca de dados
       require_once('../modulo/config.php');
-      require_once('../cliente/controller/controllerEmailClientes.php');
+      require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
       
-      $resposta = inserirEmailCliente($dadosBody);
+      $resposta = inserirEmailEstacionamento($dadosBody);
 
       if (is_bool($resposta) && $resposta == true) {
 
@@ -134,7 +134,7 @@
   });
 
   //Endpoint Requisição para atualizar um contato, simulando o PUT
-  $app->put('/emailclientes/{id}', function($request, $response, $args){
+  $app->put('/emailestacionamento/{id}', function($request, $response, $args){
       
     //Recebe do header da requisição qual será o content type
     $contentTypeHeader = $request->getHeaderLine('Content-Type');
@@ -155,7 +155,7 @@
         case 'application/json':
           //import da controller de contatos, que fará a busca de dados
           require_once('../modulo/config.php');
-          require_once('../cliente/controller/controllerEmailClientes.php');
+          require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
 
           //chama a função para buscar a foto que ja está salva no banco de dados
           
@@ -168,7 +168,7 @@
           );
         
           
-          $resposta = atualizarEmailCliente($arrayDados);
+          $resposta = atualizarEmailEstacionamento($arrayDados);
 
           if (is_bool($resposta) && $resposta == true) {
 
@@ -199,7 +199,7 @@
   });
 
   //Endpoit: Requisição para deletar um contato
-  $app->delete('/emailclientes/{id}', function($request, $response, $args){
+  $app->delete('/emailestacionamento/{id}', function($request, $response, $args){
 
 
 
@@ -207,13 +207,13 @@
     {
       require_once('../modulo/config.php');
 
-      require_once('../cliente/controller/controllerEmailClientes.php');
+      require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
 
       //Recebe o id enviado no Endpoint atraves da vareavel ID
       $id = $args['id'];
 
       //Busca o nome da foto para ser excluida na coontroller
-      if($resposta = excluirEmailCliente($id))
+      if($resposta = excluirEmailEstacionamento($id))
       {       
 
         
