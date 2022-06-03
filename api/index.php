@@ -55,7 +55,12 @@
     case 'PLANOS':
       require_once('planoAPI/index.php');
       break;
+
+    case 'VAGAS':
+      require_once('vagaAPI/index.php');
+      break;
+    
+    case 'ESTACIONAMENTOS':
+      require_once('estacionamentoAPI/index.php');
+      break;
   }
-
-
-?>
