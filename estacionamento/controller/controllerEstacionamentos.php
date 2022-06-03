@@ -27,13 +27,13 @@ function atualizarEstacionamento($dadosEstacionamento)
                 // Criação do array de dados que será encaminhado para a Model
                 $arrayDados = array(
                     "id"            =>  $id,
-                    "nome"          =>  $dadosEstacionamento['nome'],
-                    "logradouro"    =>  $dadosEstacionamento['logradouro'],
-                    "numero"        =>  $dadosEstacionamento['numero'],
-                    "cep"           =>  $dadosEstacionamento['cep'],
-                    "bairro"        =>  $dadosEstacionamento['bairro'],
-                    "cidade"        =>  $dadosEstacionamento['cidade'],
-                    "estado"        =>  $dadosEstacionamento['estado']
+                    "nome"          =>  $dadosEstacionamento[0]['nome'],
+                    "logradouro"    =>  $dadosEstacionamento[0]['logradouro'],
+                    "numero"        =>  $dadosEstacionamento[0]['numero'],
+                    "cep"           =>  $dadosEstacionamento[0]['cep'],
+                    "bairro"        =>  $dadosEstacionamento[0]['bairro'],
+                    "cidade"        =>  $dadosEstacionamento[0]['cidade'],
+                    "estado"        =>  $dadosEstacionamento[0]['estado']
                 );
 
                 // Import do arquivo de Model
