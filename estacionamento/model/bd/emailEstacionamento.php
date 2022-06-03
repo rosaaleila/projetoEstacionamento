@@ -21,7 +21,7 @@ function insertEmailEstacionamento($dadosEstacionamento)
     $conexao = conexaoMysql();
 
     // Script para adição de registro
-    $sql = "insert into tblEmailEstacionamento 
+    $sql = "insert into tblEmail_Estacionamento 
                     (email, 
                      idEstacionamento                     
                      )
@@ -53,7 +53,7 @@ function listarAllEmailEstacionamento()
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD
-    $sql = "select * from tblEmailEstacionamento order by id desc;";
+    $sql = "select * from tblEmail_Estacionamento order by id desc;";
 
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
@@ -92,7 +92,7 @@ function selectByIdEmailEstacionamento($id)
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD, em ordem decrescente
-    $sql = "select * from tblEmailEstacionamento where id = " . $id;
+    $sql = "select * from tblEmail_Estacionamento where id = " . $id;
 
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
@@ -130,7 +130,7 @@ function updateEmailEstacionamento($dadosEstacionamento)
     $conexao = conexaoMysql();
 
     // Script para atualizar um registro através de seu id
-    $sql = "update tblEmailEstacionamento set
+    $sql = "update tblEmail_Estacionamento set
                         email = '" . $dadosEstacionamento['email'] . "', 
                         idEstacionamento = '" . $dadosEstacionamento['idEstacionamento'] . "'
                         where id =" . $dadosEstacionamento['id'];
@@ -150,7 +150,7 @@ function updateEmailEstacionamento($dadosEstacionamento)
 }
 
 // Função para deletar registro no BD
-function deleteEmailCliente($id)
+function deleteEmailEstacionamento($id)
 {
 
     // Abre a conexao com o BD
@@ -160,7 +160,7 @@ function deleteEmailCliente($id)
     $status = (bool) false;
 
     // Script para deletar um registro através de seu ID
-    $sql = "delete from tblEmailEstacionamento where id =" . $id;
+    $sql = "delete from tblEmail_Estacionamento where id =" . $id;
 
     // Validação para verificar se o script sql está correto para executá-lo
     if (mysqli_query($conexao, $sql)) {

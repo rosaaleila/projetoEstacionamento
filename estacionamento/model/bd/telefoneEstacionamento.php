@@ -21,7 +21,7 @@ function insertTelefoneEstacionamento($dadosEstacionamento)
     $conexao = conexaoMysql();
 
     // Script para adição de registro
-    $sql = "insert into tblTelefoneEstacionamento 
+    $sql = "insert into tblTelefone_Estacionamento 
                     (telefone, 
                      idEstacionamento                     
                      )
@@ -53,7 +53,7 @@ function listarAllTelefoneEstacionamento()
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD
-    $sql = "select * from tblTelefoneEstacionamento order by id desc;";
+    $sql = "select * from tblTelefone_Estacionamento order by id desc;";
 
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
@@ -91,7 +91,7 @@ function selectByIdTelefoneEstacionamento($id)
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD, em ordem decrescente
-    $sql = "select * from tblTelefoneEstacionamento where id = " . $id;
+    $sql = "select * from tblTelefone_Estacionamento where id = " . $id;
 
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
@@ -129,7 +129,7 @@ function updateTelefoneEstacionamento($dadosEstacionamento)
     $conexao = conexaoMysql();
 
     // Script para atualizar um registro através de seu id
-    $sql = "update tblTelefoneEstacionamento set
+    $sql = "update tblTelefone_Estacionamento set
                         telefone = '" . $dadosEstacionamento['telefone'] . "', 
                         idEstacionamento = '" . $dadosEstacionamento['idEstacionamento'] . "'
                         where id =" . $dadosEstacionamento['id'];
@@ -159,7 +159,7 @@ function deleteTelefoneEstacionamento($id)
     $status = (bool) false;
 
     // Script para deletar um registro através de seu ID
-    $sql = "delete from tblTelefoneEstacionamento where id =" . $id;
+    $sql = "delete from tblTelefone_Estacionamento where id =" . $id;
 
     // Validação para verificar se o script sql está correto para executá-lo
     if (mysqli_query($conexao, $sql)) {

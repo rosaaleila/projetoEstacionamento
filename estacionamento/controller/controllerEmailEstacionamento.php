@@ -104,7 +104,7 @@ function excluirEmailEstacionamento($id)
         require_once(SRC . 'modulo/config.php');
 
         // Chama e verifica sucesso da função da Model
-        if (deleteEmailCliente($id)) {
+        if (deleteEmailEstacionamento($id)) {
             return true;
         } else
             return array(

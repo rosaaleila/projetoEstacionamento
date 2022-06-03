@@ -26,7 +26,7 @@
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
     // import da controller de contatos, que fara a busca de dados
-    require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
+    require_once('../estacionamento/controller/controllerEmailEstacionamento.php');
 
     // solicita os dados para a controller
     if ($dados = listarEmailEstacionamento()) {
@@ -56,7 +56,7 @@
      
      //import da controller de contatos, que fará a busca de dados
     require_once('../modulo/config.php');
-    require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
+    require_once('../estacionamento/controller/controllerEmailEstacionamento.php');
     //solicita os dados para a controller
     if($dados = buscarEmailEstacionamento($id))
     {
@@ -107,7 +107,7 @@
       
       //import da controller de contatos, que fará a busca de dados
       require_once('../modulo/config.php');
-      require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
+      require_once('../estacionamento/controller/controllerEmailEstacionamento.php');
       
       $resposta = inserirEmailEstacionamento($dadosBody);
 
@@ -155,7 +155,7 @@
         case 'application/json':
           //import da controller de contatos, que fará a busca de dados
           require_once('../modulo/config.php');
-          require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
+          require_once('../estacionamento/controller/controllerEmailEstacionamento.php');
 
           //chama a função para buscar a foto que ja está salva no banco de dados
           
@@ -207,7 +207,7 @@
     {
       require_once('../modulo/config.php');
 
-      require_once('../estacionameto/controller/controllerEmailEstacionamento.php');
+      require_once('../estacionamento/controller/controllerEmailEstacionamento.php');
 
       //Recebe o id enviado no Endpoint atraves da vareavel ID
       $id = $args['id'];

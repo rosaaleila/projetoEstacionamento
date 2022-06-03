@@ -134,7 +134,7 @@
   });
 
   //Endpoint Requisição para atualizar um contato, simulando o PUT
-  $app->put('/telefoneclientes/{id}', function($request, $response, $args){
+  $app->put('/telefoneestacionamento/{id}', function($request, $response, $args){
       
     //Recebe do header da requisição qual será o content type
     $contentTypeHeader = $request->getHeaderLine('Content-Type');
@@ -193,7 +193,7 @@
   });
 
   //Endpoit: Requisição para deletar um contato
-  $app->delete('/telefoneemail/{id}', function($request, $response, $args){
+  $app->delete('/telefoneestacionamento/{id}', function($request, $response, $args){
 
     if(is_numeric($args['id']))
     {
