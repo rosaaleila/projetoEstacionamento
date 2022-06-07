@@ -28,8 +28,8 @@ function inserirCliente($dadosCliente)
             require_once(SRC . 'cliente/model/bd/cliente.php');
 
             // Chama e verifica sucesso da função da Model
-            if (insertCliente($arrayDados))
-                return true;
+            if (is_int($id = insertCliente($arrayDados)))
+                return $id;
             else
                 return array(
                     'idErro'  => 1,
