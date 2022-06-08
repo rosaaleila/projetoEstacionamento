@@ -16,12 +16,14 @@ function inserirCliente($dadosCliente)
     if (!empty($dadosCliente)) {
 
         // Validação para verificar se o objeto contém os dados obrigatórios
-        if (!empty($dadosCliente['nome']) && !empty($dadosCliente['documento'])) {
+        if (!empty($dadosCliente['nome']) && !empty($dadosCliente['documento']) && !empty($dadosCliente['telefone']) && !empty($dadosCliente['email'])){
 
             // Criação do array de dados que será encaminhado para a Model
             $arrayDados = array(
                 "nome"      => $dadosCliente['nome'],
-                "documento"  => $dadosCliente['documento']
+                "documento"  => $dadosCliente['documento'],
+                "telefone"   => $dadosCliente['telefone'],
+                "email"      => $dadosCliente['email']
             );
 
             // Import do arquivo de Model
@@ -54,7 +56,7 @@ function atualizarCliente($dadosCliente)
     if (!empty($dadosCliente)) {
 
         // Validação para verificar se o objeto contém os dados obrigatórios
-        if (!empty($dadosCliente[0]['nome']) && !empty($dadosCliente[0]['documento'])) {
+        if (!empty($dadosCliente[0]['nome']) && !empty($dadosCliente[0]['documento']) && !empty($dadosCliente[0]['telefone']) && !empty($dadosCliente[0]['email'])){
 
             //Validação para verificar se o ID é válido
             if (!empty($id) && $id != 0 && is_numeric($id)) {
@@ -63,7 +65,9 @@ function atualizarCliente($dadosCliente)
                 $arrayDados = array(
                     "id"        => $id,
                     "nome"      => $dadosCliente[0]['nome'],
-                    "documento" => $dadosCliente[0]['documento']
+                    "documento" => $dadosCliente[0]['documento'],
+                    "telefone"  => $dadosCliente[0]['telefone'],
+                    "email"     => $dadosCliente[0]['email']
                 );
 
                 // Import do arquivo de Model

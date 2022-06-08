@@ -23,11 +23,15 @@ function insertCliente($dadosCliente)
     // Script para adição de registro
     $sql = "insert into tblCliente 
                     (nome, 
-                     documento                     
+                     documento,
+                     telefone,
+                     email                     
                      )
                 values 
                     ('" . $dadosCliente['nome'] . "',                     
-                    '" . $dadosCliente['documento'] . "'
+                    '" . $dadosCliente['documento'] . "',
+                    '" . $dadosCliente['telefone'] . "',
+                    '" . $dadosCliente['email'] . "'
                 );";
 
 
@@ -74,7 +78,9 @@ function listarAllClientes()
             $arrayDados[$cont] = array(
                 "id"        =>  $rsDados['id'],
                 "nome"      =>  $rsDados['nome'],
-                "documento"  =>  $rsDados['documento']
+                "documento"  =>  $rsDados['documento'],
+                "telefone"  =>  $rsDados['telefone'],
+                "email"     =>  $rsDados['email']
             );
             $cont++;
         }
@@ -112,7 +118,9 @@ function selectByIdCliente($id)
             $arrayDados = array(
                 "id"        =>  $rsDados['id'],
                 "nome"      =>  $rsDados['nome'],
-                "documento"  =>  $rsDados['documento']
+                "documento"  =>  $rsDados['documento'],
+                "telefone"  =>  $rsDados['telefone'],
+                "email"     =>  $rsDados['email']
             );
 
             return $arrayDados;
@@ -138,7 +146,9 @@ function updateCliente($dadosCliente)
     // Script para atualizar um registro através de seu id
     $sql = "update tblcliente set
                         nome = '" . $dadosCliente['nome'] . "', 
-                        documento = '" . $dadosCliente['documento'] . "'
+                        documento = '" . $dadosCliente['documento'] . "',
+                        telefone = '" . $dadosCliente['telefone'] . "',
+                        email = '" . $dadosCliente['email'] . "'
                         where id =" . $dadosCliente['id'];
 
     // Validação para verificar se o script sql está correto
