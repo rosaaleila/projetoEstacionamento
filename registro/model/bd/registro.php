@@ -59,6 +59,57 @@ function insertRegistro($dadosRegistro)
 }
 
 // Função para listar todos os registros no BD
+function listarAllRegistrosSaida()
+{
+
+    // Abre aconexão com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD
+    $sql = "select r.id as idRegistro, v.placa, c.telefone, r.diasaida as dataSaida, r.horaentrada as horaEntrada
+            from tblCliente c
+            inner join tblVeiculo v
+                on c.id = v.idCliente
+            inner join tblRegistro r
+                on v.id = r.idVeiculo 
+            inner join tblVagas vg
+                on vg.id = r.idVagas
+            order by datasaida desc;";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros 
+    if ($result) {
+
+        $cont = 0;
+
+        // Converte os dados do BD em array
+        while ($rsDados = mysqli_fetch_assoc($result)) {
+            $arrayDados[$cont] = array(
+                "id"                =>  $rsDados['id'],
+                "horaEntrada"       =>  $rsDados['horaEntrada'],
+                "horaSaida"         =>  $rsDados['horaSaida'],
+                "diaEntrada"        =>  $rsDados['diaEntrada'],
+                "diaSaida"          =>  $rsDados['diaSaida'],
+                "precoFinal"        =>  $rsDados['precoFinal'],
+                "idVagas"           =>  $rsDados['idVagas'],
+                "idVeiculo"         =>  $rsDados['idVeiculo']
+            );
+            $cont++;
+        }
+
+        // Fecha a conexão com o BD
+        fecharConexaoMysql($conexao);
+
+        // O script apenas foi um sucesso quando a variável arrayDados existir
+        if (isset($arrayDados))
+            return $arrayDados;
+        else
+            return false;
+    }
+}
+
 function listarAllRegistros()
 {
 
@@ -101,6 +152,7 @@ function listarAllRegistros()
             return false;
     }
 }
+
 
 // Função para selecionar um registro no BD, pelo seu ID
 function selectByIdRegistro($id)
