@@ -20,11 +20,9 @@ function inserirRegistro($dadosRegistro)
 
             // Criação do array de dados que será encaminhado para a Model
             $arrayDados = array(
-                "horaEntrada"           => $dadosRegistro['horaEntrada'],
-                "horaSaida"             => isset($dadosRegistro['horaSaida']) ? $dadosRegistro['horaSaida'] : 'null',
-                "diaEntrada"            => $dadosRegistro['diaEntrada'],
-                "diaSaida"              => isset($dadosRegistro['diaSaida']) ? $dadosRegistro['diaSaida'] : 'null',
-                "precoFinal"            => isset($dadosRegistro['precoFinal']) ? $dadosRegistro['precoFinal'] : 'null',
+                "horaSaida"             => 'null',
+                "diaSaida"              => 'null',
+                "precoFinal"            => 'null',
                 "idVagas"               => $dadosRegistro['idVagas'],
                 "idVeiculo"             => $dadosRegistro['idVeiculo']
             );

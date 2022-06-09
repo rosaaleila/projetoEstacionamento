@@ -39,6 +39,7 @@ function insertRegistro($dadosRegistro)
                     " . $dadosRegistro['idVagas'] . ",
                     " . $dadosRegistro['idVeiculo'] . "
                 );";
+
             
     //Validação para verificar se o script SQL está correto
     if (mysqli_query($conexao, $sql)) {
