@@ -185,7 +185,41 @@ function selectByPlaca($placa)
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD em ordem decrescente
-    $sql = "select * from tblVeiculo where placa = '" . $placa . "'";
+    $sql = "select distinct
+    tblveiculo.id as idVeiculo,
+    tblcliente.id as idCliente,
+    tblveiculo.placa,
+    tblcliente.nome as nomeCliente,
+    tblcliente.documento as RG,
+    tblregistro.horaentrada,
+    tblregistro.diaentrada,
+    (select timestampdiff(hour, 
+    (select concat(tblregistro.diaentrada, ' ', tblregistro.horaentrada)), 
+    current_timestamp()))
+    as tempoTotal,
+    (select
+    (select ((select hour(timediff((select tblregistro.horaentrada),
+    curtime() )) - 1) * (select tblplano.horasAdicionais) +
+    (select tblplano.primeiraHora))
+    +
+    (select ((select datediff(curdate(), (select tblregistro.diaentrada))) *
+    (select tblplano.diaria)))
+    as valorTotal,
+    tblvagas.numero as vaga,
+    tblsetor.nome as setor,
+    tblplano.nome as plano
+    from tblveiculo 
+    inner join tblcliente 
+    on tblcliente.id = tblveiculo.idcliente 
+    inner join tblregistro 
+    on tblveiculo.id = tblregistro.idveiculo 
+    and tblveiculo.placa = '".$placa."'
+    inner join tblvagas
+    on tblvagas.id = tblregistro.idvagas
+    inner join tblsetor
+    on tblsetor.id = tblvagas.idsetor
+    inner join tblplano
+    on tblplano.id = tblvagas.idplano";
 
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
@@ -197,9 +231,62 @@ function selectByPlaca($placa)
         if ($rsDados = mysqli_fetch_assoc($result)) {
 
             $arrayDados = array(
-                "id"        =>  $rsDados['id'],
-                "placa"      =>  $rsDados['placa'],
-                "idCliente"  =>  $rsDados['idCliente']
+                "idVeiculo"         =>  $rsDados['idVeiculo'],
+                "idCliente"         =>  $rsDados['idCliente'],
+                "nomeCliente"       =>  $rsDados['nomeCliente'],
+                "RG"                =>  $rsDados['RG'],
+                "horaentrada"       =>  $rsDados['horaentrada'],
+                "diaentrada"        =>  $rsDados['diaentrada'],
+                "tempoTotal"        =>  $rsDados['tempoTotal'],
+                "valorTotal"        =>  $rsDados['valorTotal'],
+                "vaga"              =>  $rsDados['vaga'],
+                "setor"             =>  $rsDados['setor'],
+                "plano"             =>  $rsDados['plano']
+            );
+
+            return $arrayDados;
+        } else {
+            return false;
+        }
+
+        // Fecha a conexao com o BD
+        fecharConexaoMysql($conexao);
+    }
+}
+
+function selectCarrosEstacionados()
+{
+
+    // Abre a conexao com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD em ordem decrescente
+    $sql = "select
+    tblregistro.id as idRegistro,
+    tblplano.id as idPlano,
+    tblveiculo.placa
+    from tblveiculo
+    inner join tblregistro
+    on tblveiculo.id = tblregistro.idveiculo
+    and tblregistro.diasaida is null
+    inner join tblvagas
+    on tblregistro.idvagas = tblvagas.id
+    inner join tblplano
+    on tblvagas.idplano = tblplano.id;";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros 
+    if ($result) {
+
+        // Convertendo os dados do BD em array
+        if ($rsDados = mysqli_fetch_assoc($result)) {
+
+            $arrayDados = array(
+                "idRegistro"        =>  $rsDados['idRegistro'],
+                "idPlano"           =>  $rsDados['idPlano'],
+                "placa"             =>  $rsDados['placa']
             );
 
             return $arrayDados;

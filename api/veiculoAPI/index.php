@@ -257,6 +257,34 @@
 
   });
 
+  $app->get('/veiculos/buscar/{placa}', function ($request, $response, $args) {
+
+    // importa do arquivo de configuracao
+    require_once('../modulo/config.php');
+    // import da controller de contatos, que fara a busca de dados
+    require_once('../veiculo/controller/controllerVeiculos.php');
+
+    $placa = $args['placa'];
+
+    // solicita os dados para a controller
+    if ($dados = buscarPlaca($placa)) {
+      // realiza a conversao do array de dados em formato json
+        if ($dadosJSON = createJSON($dados)) {
+            // caso exista dados, retornamos o status code e enviamos os dados em json
+            return $response
+                ->withStatus(200)
+                ->withHeader('Content-Type', 'application/json')
+                ->write($dadosJSON);
+        }
+    } else {
+        // retorna um status code caso a solicitacao dê errado
+        return $response
+            ->withStatus(404)
+            ->withHeader('Content-Type', 'application/json')
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+    }
+});
+
   //Executa todos os Endpoint
   $app->run();
   

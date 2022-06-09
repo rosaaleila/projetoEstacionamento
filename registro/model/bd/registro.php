@@ -153,7 +153,6 @@ function listarAllRegistros()
     }
 }
 
-
 // Função para selecionar um registro no BD, pelo seu ID
 function selectByIdRegistro($id)
 {
@@ -210,13 +209,12 @@ function updateRegistro($dadosRegistro)
     // Convertendo o dado horaSaida para o padrão necessário (00:00:00)
     preg_match_all('/([0-9]{2}):([0-9]{2}):([0-9]{2})/', $dadosRegistro['horaSaida'], $horaSaida);
     
-
     // Script para atualizar um registro através de seu id
     $sql = "update tblRegistro set
                         horaEntrada = '" . $dadosRegistro['horaEntrada'] . "', 
-                        horaSaida = '" . $dadosRegistro['horaSaida'] . "',
+                        horaSaida = curtime(),
                         diaEntrada = '" . $dadosRegistro['diaEntrada'] . "', 
-                        diaSaida = '" . $dadosRegistro['diaSaida'] . "', 
+                        diaSaida = curdate(), 
                         precoFinal = " . $dadosRegistro['precoFinal'] . ", 
                         idVagas = " . $dadosRegistro['idVagas'] . ", 
                         idVeiculo = " . $dadosRegistro['idVeiculo'] . "

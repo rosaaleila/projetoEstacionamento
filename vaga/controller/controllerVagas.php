@@ -163,3 +163,19 @@ function buscarVaga($id)
             'message'  => 'Não é possível buscar um registro sem informar um id válido.'
         );
 }
+
+function buscarVagasLivres() {
+
+    // Import do arquivo de Model
+    require_once(SRC . 'vaga/model/bd/vaga.php');
+
+    // Solicita a função que vai buscar os dados no BD e armazena o retorno
+    $dados = selectVagasDisponiveis();
+
+    // Verifica se os dados tragos pela Model estão vazios para então retorná-los
+    if (!empty($dados))
+        return $dados;
+    else
+        return false;
+
+}

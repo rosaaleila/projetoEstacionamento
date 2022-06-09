@@ -127,6 +127,35 @@ function selectByIdVaga($id)
     }
 }
 
+// Função para retornar a quantia de vagas disponiveis
+function selectVagasDisponiveis() {
+
+    // Abre a conexao com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD, em ordem decrescente
+    $sql = "select distinct
+    ((select count(tblvagas.numero) from tblvagas) - (select count(tblvagas.numero)
+    from tblvagas 
+    inner join tblregistro on tblvagas.id = tblregistro.idvagas
+    and tblregistro.diasaida is null))
+    as vagasLivres from tblregistro;";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros e, caso sim, retorna o valor
+    if ($result) {
+        return $result;    
+    } else {
+        return false;
+    }
+    
+    // Fecha a conexão com o BD
+    fecharConexaoMysql($conexao);
+
+}
+
 // Função para atualizar registro no BD
 function updateVaga($dadosVaga)
 {
