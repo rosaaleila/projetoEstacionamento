@@ -111,11 +111,11 @@
       
       $resposta = inserirVeiculo($dadosBody);
 
-      if (is_bool($resposta) && $resposta == true) {
+      if (is_int($resposta)) {
 
         return $response   ->withStatus(201)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Contato inserido com sucesso"}');
+                            ->write('{"message":"Veículo inserido com sucesso", "idVeiculo": '.$resposta.'}');
 
       } elseif (is_array($resposta) && $resposta['idErro'])        
       {

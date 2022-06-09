@@ -255,7 +255,7 @@
 
   });
 
-  $app->get('/vagas/livres', function ($request, $response, $args) {
+  $app->get('/vagas/buscar/livres', function ($request, $response, $args) {
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');

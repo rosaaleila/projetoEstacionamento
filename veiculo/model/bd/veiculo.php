@@ -38,12 +38,17 @@ function insertVeiculo($dadosVeiculo)
         // Validação para verificar se uma linha foi acrescentada no DB
         if (mysqli_affected_rows($conexao))
             $statusResposta = true;
+            $id = mysqli_insert_id($conexao);
     }
 
     // Fecha a conexão com o BD
     fecharConexaoMysql($conexao);
 
-    return $statusResposta;
+    if ($statusResposta) {
+        return $id;
+    } else {
+        return $statusResposta;
+    }
 }
 
 // Função para listar todos os registros no BD

@@ -141,12 +141,13 @@ function selectVagasDisponiveis() {
     and tblregistro.diasaida is null))
     as vagasLivres from tblregistro;";
 
+    
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
-
-    // Valida se o BD retornou registros e, caso sim, retorna o valor
-    if ($result) {
-        return $result;    
+    if ($rsDados = mysqli_fetch_assoc($result)) {
+    
+        $dados = $rsDados['vagasLivres'];
+        return $dados;
     } else {
         return false;
     }

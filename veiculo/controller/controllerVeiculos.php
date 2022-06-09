@@ -28,8 +28,8 @@ function inserirVeiculo($dadosVeiculo)
             require_once(SRC . 'veiculo/model/bd/veiculo.php');
 
             // Chama e verifica sucesso da função da Model
-            if (insertVeiculo($arrayDados))
-                return true;
+            if (is_int($id = insertVeiculo($arrayDados)))
+                return $id;
             else
                 return array(
                     'idErro'  => 1,
