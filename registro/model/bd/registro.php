@@ -19,9 +19,6 @@ function insertRegistro($dadosRegistro)
 
     // Abre aconexão com o BD
     $conexao = conexaoMysql();
-
-    // Convertendo o dado horaEntrada para o padrão necessário (00:00:00)
-    preg_match_all('/([0-9]{2}):([0-9]{2}):([0-9]{2})/', $dadosRegistro['horaEntrada'], $horaEntrada);
     
     // Script para adição de registro
     $sql = "insert into tblRegistro 
@@ -34,15 +31,14 @@ function insertRegistro($dadosRegistro)
                      idVeiculo                     
                      )
                 values 
-                    ('".$horaEntrada[0][0]."',                     
+                    (curtime(),                     
                     " . $dadosRegistro['horaSaida'] . ",                     
-                    '" . $dadosRegistro['diaEntrada'] . "',
+                    curdate(),
                     " . $dadosRegistro['diaSaida'] . ",
                     " . $dadosRegistro['precoFinal'] . ",
                     " . $dadosRegistro['idVagas'] . ",
                     " . $dadosRegistro['idVeiculo'] . "
                 );";
-
             
     //Validação para verificar se o script SQL está correto
     if (mysqli_query($conexao, $sql)) {
