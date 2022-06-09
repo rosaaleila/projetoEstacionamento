@@ -16,7 +16,7 @@ function inserirRegistro($dadosRegistro)
     if (!empty($dadosRegistro)) {
 
         // Validação para verificar se o objeto contém os dados obrigatórios
-        if (!empty($dadosRegistro['horaEntrada']) && !empty($dadosRegistro['diaEntrada']) && !empty($dadosRegistro['idVagas']) && !empty($dadosRegistro['idVeiculo'])) {
+        if (!empty($dadosRegistro['idVagas']) && !empty($dadosRegistro['idVeiculo'])) {
 
             // Criação do array de dados que será encaminhado para a Model
             $arrayDados = array(
