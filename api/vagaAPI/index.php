@@ -270,7 +270,7 @@
             return $response
                 ->withStatus(200)
                 ->withHeader('Content-Type', 'application/json')
-                ->write($dadosJSON);
+                ->write('{"vagasLivres":'.$dadosJSON.'}');
         }
     } else {
         // retorna um status code caso a solicitacao dê errado
