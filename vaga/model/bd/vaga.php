@@ -215,3 +215,56 @@ function deleteVaga($id)
 
     return $status;
 }
+
+// Função para listar as vagas nao ocupadas
+function listarVagasDisponiveis()
+{
+
+    // Abre aconexão com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD
+    $sql = "select 
+	tblvagas.id as idVaga,
+    tblplano.id as idPlano,
+    tblvagas.numero as vaga,
+    tblplano.nome as plano,
+    tblsetor.nome as setor
+    from tblvagas
+	inner join tblregistro
+        on tblregistro.precofinal is not null
+	inner join tblsetor 
+		on tblsetor.id = tblvagas.idsetor
+	inner join tblplano
+		on tblplano.id = tblvagas.idplano;";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros 
+    if ($result) {
+
+        $cont = 0;
+
+        // Converte os dados do BD em array
+        while ($rsDados = mysqli_fetch_assoc($result)) {
+            $arrayDados[$cont] = array(
+                "idVaga"             =>  $rsDados['idVaga'],
+                "idPlano"            =>  $rsDados['idPlano'],
+                "vaga"               =>  $rsDados['vaga'],
+                "plano"              =>  $rsDados['plano'],
+                "setor"              =>  $rsDados['setor']                
+            );
+            $cont++;
+        }
+
+        // Fecha a conexão com o BD
+        fecharConexaoMysql($conexao);
+
+        // O script apenas foi um sucesso quando a variável arrayDados existir
+        if (isset($arrayDados))
+            return $arrayDados;
+        else
+            return false;
+    }
+}

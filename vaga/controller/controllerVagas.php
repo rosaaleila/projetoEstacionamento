@@ -179,3 +179,20 @@ function buscarVagasLivres() {
         return false;
 
 }
+
+// Função para solicitar os dados da Model e encaminhar a lista de registros para a View
+function listarVagasLivres()
+{
+
+    // Import do arquivo de Model
+    require_once(SRC . 'vaga/model/bd/vaga.php');
+
+    // Solicita a função que vai buscar os dados no BD e armazena o retorno
+    $dados = listarVagasDisponiveis();
+
+    // Verifica se os dados tragos pela Model estão vazios para então retorná-los
+    if (!empty($dados))
+        return $dados;
+    else
+        return false;
+}
