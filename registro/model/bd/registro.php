@@ -64,15 +64,16 @@ function listarAllRegistroSaida()
 
     // Script para listar todos os dados do BD
     $sql = "select r.id as idRegistro, v.placa, c.telefone,
-            r.diasaida as dataSaida, r.horaentrada as horaEntrada
+            r.diasaida as dataSaida, r.horasaida as horaSaida
             from tblCliente c
             inner join tblVeiculo v
                 on c.id = v.idCliente
             inner join tblRegistro r
-                on v.id = r.idVeiculo 
+                on v.id = r.idVeiculo                 
             inner join tblVagas vg
                 on vg.id = r.idVagas
-            order by datasaida desc;";
+            where r.diasaida and r.horasaida != 'null'			
+            order by datasaida, horasaida desc;";
 
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
@@ -90,7 +91,7 @@ function listarAllRegistroSaida()
                 "placa"             =>  $rsDados['placa'],
                 "telefone"          =>  $rsDados['telefone'],
                 "dataSaida"         =>  $rsDados['dataSaida'],
-                "horaEntrada"       =>  $rsDados['horaEntrada']          
+                "horaSaida"       =>  $rsDados['horaSaida']          
                 
             );
             $cont++;
