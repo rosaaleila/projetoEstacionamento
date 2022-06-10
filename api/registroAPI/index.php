@@ -21,6 +21,33 @@
   //Criando um objeto do slim chamado app, para coonfigurar os endpoints(rotas)
   $app = new \Slim\App();
 
+  $app->get('/registros/saida', function ($request, $response, $args) {
+
+    // importa do arquivo de configuracao
+    require_once('../modulo/config.php');
+    // import da controller de registros que fara a busca de dados
+    require_once('../registro/controller/controllerRegistros.php');
+
+    // solicita os dados para a controller
+    if ($dados = listarRegistroSaida()) {
+      // realiza a conversao do array de dados em formato json
+        if ($dadosJSON = createJSON($dados)) {
+            // caso exista dados, retornamos o status code e enviamos os dados em json
+            return $response
+                ->withStatus(200)
+                ->withHeader('Content-Type', 'application/json')
+                ->write($dadosJSON);
+        }
+    } else {
+        // retorna um status code caso a solicitacao dê errado
+        return $response
+            ->withStatus(404)
+            ->withHeader('Content-Type', 'application/json')
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros que sairam."}');
+    }
+});
+
+  //Listar registro 
   $app->get('/registros', function ($request, $response, $args) {
 
     // importa do arquivo de configuracao
@@ -47,7 +74,7 @@
     }
 });
 
-  //Endpoint Requisição para listar contatos pelo id
+  //Endpoint Requisição para listar registros pelo id
   $app->get('/registros/{id}', function($request, $response, $args){
     
     //Recebe o id do registro que devera ser retornado pela api
@@ -133,7 +160,7 @@
 
   });
 
-  //Endpoint Requisição para atualizar um contato, simulando o PUT
+  //Endpoint Requisição para atualizar um registro
   $app->put('/registros/{id}', function($request, $response, $args){
       
     //Recebe do header da requisição qual será o content type
@@ -194,7 +221,7 @@
     }
   });
 
-  //Endpoit: Requisição para deletar um contato
+  //Endpoit: Requisição para deletar um registro
   $app->delete('/registros/{id}', function($request, $response, $args){
 
 
@@ -253,6 +280,7 @@
 
   });
   
+  //Endpoit: Requisição para buscar um registro pela placa
   $app->get('/registros/buscar/{placa}', function ($request, $response, $args) {
 
     // importa do arquivo de configuracao

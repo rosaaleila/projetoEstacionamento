@@ -126,6 +126,25 @@ function excluirRegistro($id)
         );
 }
 
+// Função para solicitar os dados da Model e encaminhar a lista de registros de saida para a View
+function listarRegistroSaida()
+{
+
+    // Import do arquivo de Model
+    require_once(SRC . 'registro/model/bd/registro.php');
+
+    // Solicita a função que vai buscar os dados no BD e armazena o retorno
+    $dados = listarAllRegistroSaida();
+
+    // Verifica se os dados tragos pela Model estão vazios para então retorná-los
+    if (!empty($dados))
+        return $dados;
+    else
+        return false;
+}
+
+
+
 // Função para solicitar os dados da Model e encaminhar a lista de registros para a View
 function listarRegistro()
 {

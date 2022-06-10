@@ -55,15 +55,16 @@ function insertRegistro($dadosRegistro)
     return $statusResposta;
 }
 
-// Função para listar todos os registros no BD
-function listarAllRegistrosSaida()
+// Função para listar todos os registros de saída no BD
+function listarAllRegistroSaida()
 {
 
     // Abre aconexão com o BD
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD
-    $sql = "select r.id as idRegistro, v.placa, c.telefone, r.diasaida as dataSaida, r.horaentrada as horaEntrada
+    $sql = "select r.id as idRegistro, v.placa, c.telefone,
+            r.diasaida as dataSaida, r.horaentrada as horaEntrada
             from tblCliente c
             inner join tblVeiculo v
                 on c.id = v.idCliente
@@ -76,7 +77,8 @@ function listarAllRegistrosSaida()
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
 
-    // Valida se o BD retornou registros 
+    // Valida se o BD retornou registros que sairam
+
     if ($result) {
 
         $cont = 0;
@@ -84,14 +86,12 @@ function listarAllRegistrosSaida()
         // Converte os dados do BD em array
         while ($rsDados = mysqli_fetch_assoc($result)) {
             $arrayDados[$cont] = array(
-                "id"                =>  $rsDados['id'],
-                "horaEntrada"       =>  $rsDados['horaEntrada'],
-                "horaSaida"         =>  $rsDados['horaSaida'],
-                "diaEntrada"        =>  $rsDados['diaEntrada'],
-                "diaSaida"          =>  $rsDados['diaSaida'],
-                "precoFinal"        =>  $rsDados['precoFinal'],
-                "idVagas"           =>  $rsDados['idVagas'],
-                "idVeiculo"         =>  $rsDados['idVeiculo']
+                "id"                =>  $rsDados['idRegistro'],
+                "placa"             =>  $rsDados['placa'],
+                "telefone"          =>  $rsDados['telefone'],
+                "dataSaida"         =>  $rsDados['dataSaida'],
+                "horaEntrada"       =>  $rsDados['horaEntrada']          
+                
             );
             $cont++;
         }
