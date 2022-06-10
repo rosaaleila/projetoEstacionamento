@@ -19,7 +19,7 @@ function insertRegistro($dadosRegistro)
 
     // Abre aconexão com o BD
     $conexao = conexaoMysql();
-    
+
     // Script para adição de registro
     $sql = "insert into tblRegistro 
                     (horaEntrada,
@@ -40,7 +40,7 @@ function insertRegistro($dadosRegistro)
                     " . $dadosRegistro['idVeiculo'] . "
                 );";
 
-            
+
     //Validação para verificar se o script SQL está correto
     if (mysqli_query($conexao, $sql)) {
 
@@ -107,6 +107,7 @@ function listarAllRegistrosSaida()
     }
 }
 
+// Função para listar todos os registros no BD
 function listarAllRegistros()
 {
 
@@ -202,10 +203,7 @@ function updateRegistro($dadosRegistro)
 
     // Convertendo o dado horaEntrada para o padrão necessário (00:00:00)
     preg_match_all('/([0-9]{2}):([0-9]{2}):([0-9]{2})/', $dadosRegistro['horaEntrada'], $horaEntrada);
-    
-    // Convertendo o dado horaSaida para o padrão necessário (00:00:00)
-    preg_match_all('/([0-9]{2}):([0-9]{2}):([0-9]{2})/', $dadosRegistro['horaSaida'], $horaSaida);
-    
+
     // Script para atualizar um registro através de seu id
     $sql = "update tblRegistro set
                         horaEntrada = '" . $dadosRegistro['horaEntrada'] . "', 
@@ -256,4 +254,82 @@ function deleteRegistro($id)
     fecharConexaoMysql($conexao);
 
     return $status;
+}
+
+
+// Função para listar todos os registros no BD
+function buscarDadosRegistro($placa)
+{
+
+    // Abre a conexao com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD, em ordem decrescente
+    $sql = "select 
+    tblveiculo.id as idVeiculo,
+    tblveiculo.placa,
+    tblcliente.nome as nomeCliente,
+    tblcliente.documento as RG,
+    tblregistro.horaentrada,
+    tblregistro.diaentrada,
+        (select timestampdiff(hour, (select concat(tblregistro.diaentrada, ' ', tblregistro.horaentrada)), 
+        current_timestamp()))
+            as tempoTotal,
+        (select (select
+            if((select hour(timediff((select tblregistro.horaentrada), curtime()))) > 1, 
+                (select hour(timediff((select tblregistro.horaentrada), curtime())) - 1) *
+                (select tblplano.horasAdicionais) +
+                (select tblplano.primeiraHora),
+                    (select hour(timediff((select tblregistro.horaentrada), curtime())) +
+                    (select tblplano.primeiraHora)))
+            + (select datediff(curdate(), (select tblregistro.diaentrada))) *
+            (select tblplano.diaria))) as valorTotal,
+    tblvagas.numero as vaga,
+    tblsetor.nome as setor,
+    tblplano.nome as plano
+    from tblveiculo 
+    inner join tblcliente 
+    on tblcliente.id = tblveiculo.idcliente 
+    inner join tblregistro 
+    on tblveiculo.id = tblregistro.idveiculo
+    and tblveiculo.placa = '" . $placa . "'
+    and tblregistro.diasaida is null
+    inner join tblvagas
+    on tblvagas.id = tblregistro.idvagas
+    inner join tblsetor
+    on tblsetor.id = tblvagas.idsetor
+    inner join tblplano
+    on tblplano.id = tblvagas.idplano;";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros 
+    if ($result) {
+
+        // Convertendo os dados do BD em array
+        if ($rsDados = mysqli_fetch_assoc($result)) {
+
+            $arrayDados = array(
+                "idVeiculo"         =>  $rsDados['idVeiculo'],
+                "placa"             =>  $rsDados['placa'],
+                "nomeCliente"       =>  $rsDados['nomeCliente'],
+                "RG"                =>  $rsDados['RG'],
+                "horaentrada"       =>  $rsDados['horaentrada'],
+                "diaentrada"        =>  $rsDados['diaentrada'],
+                "tempoTotal"        =>  $rsDados['tempoTotal'],
+                "valorTotal"        =>  $rsDados['valorTotal'],
+                "vaga"              =>  $rsDados['vaga'],
+                "setor"             =>  $rsDados['setor'],
+                "plano"             =>  $rsDados['plano']
+            );
+
+            return $arrayDados;
+        } else {
+            return false;
+        }
+    }
+
+    // Fecha a conexão com o BD
+    fecharConexaoMysql($conexao);
 }

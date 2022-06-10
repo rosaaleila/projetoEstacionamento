@@ -66,7 +66,6 @@ function atualizarRegistro($dadosRegistro)
                 $arrayDados = array(
                     "id"        => $id,
                     "horaEntrada"           => $dadosRegistro[0]['horaEntrada'],
-                    "horaSaida"             => $dadosRegistro[0]['horaSaida'],
                     "diaEntrada"            => $dadosRegistro[0]['diaEntrada'],
                     "diaSaida"              => $dadosRegistro[0]['diaSaida'],
                     "precoFinal"            => $dadosRegistro[0]['precoFinal'],
@@ -167,4 +166,20 @@ function buscarRegistro($id)
             'idErro'   => 4,
             'message'  => 'Não é possível buscar um registro sem informar um id válido.'
         );
+}
+
+function buscarRegistroSaida($placa) {
+
+    // Import do arquivo de Model
+    require_once(SRC . 'registro/model/bd/registro.php');
+
+    // Solicita a função que vai buscar os dados no BD e armazena o retorno
+    $dados = buscarDadosRegistro($placa);
+
+    // Verifica se os dados tragos pela Model estão vazios para então retorná-los
+    if (!empty($dados))
+        return $dados;
+    else
+        return false;
+
 }
