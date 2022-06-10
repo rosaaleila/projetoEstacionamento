@@ -382,3 +382,48 @@ function buscarDadosRegistro($placa)
     fecharConexaoMysql($conexao);
 }
 
+function buscarRelatorio($diaInicio, $diaFim)
+{
+
+    // Abre a conexao com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD, em ordem decrescente
+    $sql = "select 
+	count(tblveiculo.placa) as veiculosEstacionados,
+    SUM(tblregistro.precofinal) as valorTotal
+    from tblregistro
+    inner join tblveiculo
+    on tblveiculo.id = tblregistro.idveiculo
+    and tblregistro.diaEntrada
+    between '".$diaInicio."' and '".$diaFim."'
+    and tblregistro.diasaida is not null;";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros 
+    if ($result) {
+
+        $cont = 0;
+
+        // Converte os dados do BD em array
+        while ($rsDados = mysqli_fetch_assoc($result)) {
+            $arrayDados[$cont] = array(
+                "veiculosEstacionados"      =>  $rsDados['veiculosEstacionados'],
+                "valorTotal"                =>  $rsDados['valorTotal']
+            );
+            $cont++;
+        }
+
+        // O script apenas foi um sucesso quando a variável arrayDados existir
+        if (isset($arrayDados))
+            return $arrayDados;
+        else
+            return false;
+
+    }
+
+    // Fecha a conexão com o BD
+    fecharConexaoMysql($conexao);
+}

@@ -160,8 +160,6 @@ function listarRegistroSaida()
         return false;
 }
 
-
-
 // Função para solicitar os dados da Model e encaminhar a lista de registros para a View
 function listarRegistro()
 {
@@ -211,6 +209,22 @@ function buscarRegistroSaida($placa) {
 
     // Solicita a função que vai buscar os dados no BD e armazena o retorno
     $dados = buscarDadosRegistro($placa);
+
+    // Verifica se os dados tragos pela Model estão vazios para então retorná-los
+    if (!empty($dados))
+        return $dados;
+    else
+        return false;
+
+}
+
+function procurarRelatorio($diaInicio, $diaFim) {
+
+    // Import do arquivo de Model
+    require_once(SRC . 'registro/model/bd/registro.php');
+
+    // Solicita a função que vai buscar os dados no BD e armazena o retorno
+    $dados = buscarRelatorio($diaInicio, $diaFim);
 
     // Verifica se os dados tragos pela Model estão vazios para então retorná-los
     if (!empty($dados))
