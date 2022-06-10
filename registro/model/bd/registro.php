@@ -318,23 +318,18 @@ function buscarDadosRegistro($placa)
     // Script para listar todos os dados do BD, em ordem decrescente
     $sql = "select 
     tblveiculo.id as idVeiculo,
+    tblplano.id as idPlano,
     tblveiculo.placa,
     tblcliente.nome as nomeCliente,
     tblcliente.documento as RG,
     tblregistro.horaentrada,
     tblregistro.diaentrada,
-        (select timestampdiff(hour, (select concat(tblregistro.diaentrada, ' ', tblregistro.horaentrada)), 
-        current_timestamp()))
-            as tempoTotal,
-        (select (select
-            if((select hour(timediff((select tblregistro.horaentrada), curtime()))) > 1, 
-                (select hour(timediff((select tblregistro.horaentrada), curtime())) - 1) *
-                (select tblplano.horasAdicionais) +
-                (select tblplano.primeiraHora),
-                    (select hour(timediff((select tblregistro.horaentrada), curtime())) +
-                    (select tblplano.primeiraHora)))
-            + (select datediff(curdate(), (select tblregistro.diaentrada))) *
-            (select tblplano.diaria))) as valorTotal,
+        (select datediff(curdate(), diaEntrada)) as totalDias,
+        (select hour(timediff(horaEntrada, curtime()))) as totalHoras,
+        (select CASE 
+            WHEN totalHoras <= 1 THEN tblplano.primeiraHora + (totalDias * tblplano.diaria)
+            WHEN totalHoras > 1  THEN ((totalHoras - 1) * tblplano.horasAdicionais) + tblplano.primeiraHora + (totalDias * tblplano.diaria)
+            END) as valorTotal,
     tblvagas.numero as vaga,
     tblsetor.nome as setor,
     tblplano.nome as plano
@@ -343,7 +338,7 @@ function buscarDadosRegistro($placa)
     on tblcliente.id = tblveiculo.idcliente 
     inner join tblregistro 
     on tblveiculo.id = tblregistro.idveiculo
-    and tblveiculo.placa = '" . $placa . "'
+    and tblveiculo.placa = '".$placa."'
     and tblregistro.diasaida is null
     inner join tblvagas
     on tblvagas.id = tblregistro.idvagas
@@ -363,12 +358,14 @@ function buscarDadosRegistro($placa)
 
             $arrayDados = array(
                 "idVeiculo"         =>  $rsDados['idVeiculo'],
+                "idPlano"           =>  $rsDados['idPlano'],
                 "placa"             =>  $rsDados['placa'],
                 "nomeCliente"       =>  $rsDados['nomeCliente'],
                 "RG"                =>  $rsDados['RG'],
                 "horaentrada"       =>  $rsDados['horaentrada'],
                 "diaentrada"        =>  $rsDados['diaentrada'],
-                "tempoTotal"        =>  $rsDados['tempoTotal'],
+                "totalHoras"        =>  $rsDados['totalHoras'],
+                "totalDias"         =>  $rsDados['totalDias'],
                 "valorTotal"        =>  $rsDados['valorTotal'],
                 "vaga"              =>  $rsDados['vaga'],
                 "setor"             =>  $rsDados['setor'],
@@ -384,3 +381,4 @@ function buscarDadosRegistro($placa)
     // Fecha a conexão com o BD
     fecharConexaoMysql($conexao);
 }
+
