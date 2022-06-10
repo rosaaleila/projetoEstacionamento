@@ -56,6 +56,56 @@ function insertRegistro($dadosRegistro)
 }
 
 // Função para listar todos os registros de saída no BD
+function listarAllRegistroEntrada()
+{
+
+    // Abre aconexão com o BD
+    $conexao = conexaoMysql();
+
+    // Script para listar todos os dados do BD
+    $sql = "select r.id as idRegistro, c.nome as nomeCliente,
+            v.placa, vg.numero as numeroVaga, c.telefone
+            from tblCliente c
+            inner join tblVeiculo v
+                on c.id = v.idCliente
+            inner join tblRegistro r
+                on v.id = r.idVeiculo 
+            inner join tblVagas vg
+                on vg.id = r.idVagas;";
+
+    // Executa o script sql no BD e guarda o retorno dos dados
+    $result = mysqli_query($conexao, $sql);
+
+    // Valida se o BD retornou registros que sairam
+
+    if ($result) {
+
+        $cont = 0;
+
+        // Converte os dados do BD em array
+        while ($rsDados = mysqli_fetch_assoc($result)) {
+            $arrayDados[$cont] = array(
+                "id"                =>  $rsDados['idRegistro'],
+                "nomeCliente"       =>  $rsDados['nomeCliente'],
+                "placa"             =>  $rsDados['placa'],
+                "numeroVaga"        =>  $rsDados['numeroVaga'],
+                "telefone"          =>  $rsDados['telefone']
+            );
+            $cont++;
+        }
+
+        // Fecha a conexão com o BD
+        fecharConexaoMysql($conexao);
+
+        // O script apenas foi um sucesso quando a variável arrayDados existir
+        if (isset($arrayDados))
+            return $arrayDados;
+        else
+            return false;
+    }
+}
+
+// Função para listar todos os registros de saída no BD
 function listarAllRegistroSaida()
 {
 

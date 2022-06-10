@@ -21,6 +21,34 @@
   //Criando um objeto do slim chamado app, para coonfigurar os endpoints(rotas)
   $app = new \Slim\App();
 
+
+  //Rotas para o endpoint de registro de entrada
+  $app->get('/registros/entrada', function ($request, $response, $args) {
+
+    // importa do arquivo de configuracao
+    require_once('../modulo/config.php');
+    // import da controller de registros que fara a busca de dados
+    require_once('../registro/controller/controllerRegistros.php');
+
+    // solicita os dados para a controller
+    if ($dados = listarRegistroEntrada()) {
+      // realiza a conversao do array de dados em formato json
+        if ($dadosJSON = createJSON($dados)) {
+            // caso exista dados, retornamos o status code e enviamos os dados em json
+            return $response
+                ->withStatus(200)
+                ->withHeader('Content-Type', 'application/json')
+                ->write($dadosJSON);
+        }
+    } else {
+        // retorna um status code caso a solicitacao dê errado
+        return $response
+            ->withStatus(404)
+            ->withHeader('Content-Type', 'application/json')
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros que entraram."}');
+    }
+});
+
   $app->get('/registros/saida', function ($request, $response, $args) {
 
     // importa do arquivo de configuracao
