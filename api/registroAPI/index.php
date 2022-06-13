@@ -132,7 +132,7 @@
 
         return $response  ->withStatus(404)
                           ->withHeader('Content-Type', 'application/json')
-                          ->write('{"message": "Dados inválidos",
+                          ->write('{"message": "ID do registro inválido",
                           "Erro": '.$dadosJSON.' }');
                           
       }
@@ -170,7 +170,7 @@
 
         return $response   ->withStatus(201)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Contato inserido com sucesso"}');
+                            ->write('{"message":"Registro inserido com sucesso"}');
 
       } elseif (is_array($resposta) && $resposta['idErro'])        
       {
@@ -178,7 +178,7 @@
 
         return $response   ->withStatus(400)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Erro ao inserir contato."},
+                            ->write('{"message":"Erro ao inserir um registro."},
                             "Erro": '.$dadosJSON.' }');
       }     
         
@@ -225,7 +225,7 @@
 
             return $response   ->withStatus(200)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Contato atualizado com sucesso"}');
+                                ->write('{"message":"Registro atualizado com sucesso"}');
 
           } elseif (is_array($resposta) && $resposta['idErro'])        
           {
@@ -233,7 +233,7 @@
 
             return $response   ->withStatus(400)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Erro ao atualizar contato."},
+                                ->write('{"message":"Erro ao atualizar um Registro."},
                                 "Erro": '.$dadosJSON.' }');
             break;      
           
@@ -266,24 +266,13 @@
       //Busca o nome da foto para ser excluida na coontroller
       if($resposta = excluirRegistro($id))
       {       
-
-        
-        
         if(is_bool($resposta) && $resposta == true)
         {
           return  $response   ->withStatus(200)
                               ->withHeader('Content-Type', 'application/json')
                               ->write('{"message" : "Registro excluido com sucesso"}');
-        }elseif(is_array($resposta) && isset($resposta['idErro']))
-        {
-          if($resposta['idErro'] == 5)
-          {
-            return  $response   ->withStatus(200)
-                                ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message" : "Resgistro excluido com sucesso, porém houve um problema na exclusão da foto"}');
-          }else{
-
-          
+        }elseif(is_array($resposta))
+        {      
             $dadosJSON=createJSON($resposta);
 
             return  $response ->withStatus(404)
@@ -291,7 +280,7 @@
                               ->write('{"message" : "Ouve um problema no processo de excluir",
                                       "Erro" : '.$dadosJSON.'}');
           }                          
-        }
+      
       }else
       {
         return  $response   ->withStatus(404)

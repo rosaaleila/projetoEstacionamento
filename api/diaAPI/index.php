@@ -1,19 +1,14 @@
 <?php
 
-  /*
-  * $request -> Recebe dados do corpo da requisição (JSON, FORM/DATA, XML, etc)
-  * $response -> Envia dados de retorno da API
-  * $args -> Permite receber dados de atributos na API
-  *
-  * Os metodos de reposição para uma API RESTful são:
-  * GET       - para buscar dados
-  * POST      - para iserir um novo dado
-  * DELETE    - para apagar dados
-  * PUT/PATCH - para editar um dado já existente
-  *             o mais utilizado é o PUT
-  *
-  * 
-  */
+  /***********************************************************************
+ * Objetivo: Arquivo responsável por preparar os endpoints do dia à serem 
+ * usados como uma API pegando os dados armazenados no banco de dados e 
+ * retornando para quem fizer a requisição dos endpoints. 
+ * 		    
+ * Autora: Leila e Vinicio
+ * Data: 03/06/2022
+ * Versão: 1.0
+ ***********************************************************************/
 
   //import do arquivo autoload, que fará as instancias do slim
   require_once('vendor/autoload.php');  

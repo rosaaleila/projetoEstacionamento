@@ -1,19 +1,14 @@
 <?php
 
-  /*
-  * $request -> Recebe dados do corpo da requisição (JSON, FORM/DATA, XML, etc)
-  * $response -> Envia dados de retorno da API
-  * $args -> Permite receber dados de atributos na API
-  *
-  * Os metodos de reposição para uma API RESTful são:
-  * GET       - para buscar dados
-  * POST      - para iserir um novo dado
-  * DELETE    - para apagar dados
-  * PUT/PATCH - para editar um dado já existente
-  *             o mais utilizado é o PUT
-  *
-  * 
-  */
+  /***********************************************************************
+ * Objetivo: Arquivo responsável por preparar os endpoints dos planos à serem 
+ * usados como uma API pegando os dados armazenados no banco de dados e 
+ * retornando para quem fizer a requisição dos endpoints. 
+ * 		    
+ * Autora: Leila e Vinicio
+ * Data: 03/06/2022
+ * Versão: 1.0
+ ***********************************************************************/
 
   //import do arquivo autoload, que fará as instancias do slim
   require_once('vendor/autoload.php');  
@@ -43,7 +38,7 @@
         return $response
             ->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar nenhum plano cadastrado."}');
     }
 });
 
@@ -115,7 +110,7 @@
 
         return $response   ->withStatus(201)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Contato inserido com sucesso"}');
+                            ->write('{"message":"Plano inserido com sucesso"}');
 
       } elseif (is_array($resposta) && $resposta['idErro'])        
       {
@@ -123,7 +118,7 @@
 
         return $response   ->withStatus(400)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Erro ao inserir contato."},
+                            ->write('{"message":"Erro ao inserir um plano."},
                             "Erro": '.$dadosJSON.' }');
       }     
         
@@ -168,7 +163,7 @@
 
             return $response   ->withStatus(200)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Contato atualizado com sucesso"}');
+                                ->write('{"message":"Plano atualizado com sucesso"}');
 
           } elseif (is_array($resposta) && $resposta['idErro'])        
           {
@@ -176,7 +171,7 @@
 
             return $response   ->withStatus(400)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Erro ao atualizar contato."},
+                                ->write('{"message":"Erro ao atualizar um plano."},
                                 "Erro": '.$dadosJSON.' }');
             break;      
           
@@ -208,32 +203,21 @@
 
       //Busca o nome da foto para ser excluida na coontroller
       if($resposta = excluirPlano($id))
-      {       
-
-        
+      {  
         
         if(is_bool($resposta) && $resposta == true)
         {
           return  $response   ->withStatus(200)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Registro excluido com sucesso"}');
-        }elseif(is_array($resposta) && isset($resposta['idErro']))
-        {
-          if($resposta['idErro'] == 5)
-          {
-            return  $response   ->withStatus(200)
-                                ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message" : "Resgistro excluido com sucesso, porém houve um problema na exclusão da foto"}');
-          }else{
-
-          
+                              ->write('{"message" : "Plano excluido com sucesso"}');
+        }elseif(is_array($resposta))
+        {   
             $dadosJSON=createJSON($resposta);
 
             return  $response ->withStatus(404)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Ouve um problema no processo de excluir",
+                              ->write('{"message" : "Ouve um problema no processo de excluir o Plano",
                                       "Erro" : '.$dadosJSON.'}');
-          }                          
         }
       }else
       {
