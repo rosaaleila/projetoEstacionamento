@@ -46,7 +46,7 @@ function buscarDia($id)
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível buscar um registro sem informar um id válido.'
+            'message'  => 'Não é possível buscar um dia sem informar um id válido.'
         );
 }
 

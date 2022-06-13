@@ -45,12 +45,12 @@ function atualizarEstacionamento($dadosEstacionamento)
                 } else
                     return array(
                         'idErro'  => 1,
-                        'message' => 'Não foi possivel atualizar os dados no Banco de Dados'
+                        'message' => 'Não foi possivel atualizar um estacionamento no dados no Banco de Dados'
                     );
             } else
                 return array(
                     'idErro'   => 4,
-                    'message'  => 'Não é possível editar um registro sem informar um id válido.'
+                    'message'  => 'Não é possível editar um estacionamento sem informar um id válido.'
                 );
         } else
             return array(
@@ -98,6 +98,6 @@ function buscarEstacionamento($id)
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível buscar um registro sem informar um id válido.'
+            'message'  => 'Não é possível buscar um estacionamento sem informar um id válido.'
         );
 }

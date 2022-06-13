@@ -36,12 +36,12 @@ function inserirRegistro($dadosRegistro)
             else
                 return array(
                     'idErro'  => 1,
-                    'message' => 'Não foi possivel inserir os dados no Banco de Dados'
+                    'message' => 'Não foi possivel inserir um registro no Banco de Dados'
                 );
         } else
             return array(
                 'idErro'   => 2,
-                'message'  => 'Existem campos obrigatório que não foram preenchidos.'
+                'message'  => 'Existem campos obrigatórios que não foram preenchidos.'
             );
     }
 }
@@ -82,7 +82,7 @@ function atualizarRegistro($dadosRegistro)
                 } else
                     return array(
                         'idErro'  => 1,
-                        'message' => 'Não foi possivel atualizar os dados no Banco de Dados'
+                        'message' => 'Não foi possivel atualizar o registro no Banco de Dados'
                     );
             } else
                 return array(

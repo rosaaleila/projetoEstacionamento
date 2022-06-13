@@ -34,7 +34,7 @@ function inserirVaga($dadosVaga)
             else
                 return array(
                     'idErro'  => 1,
-                    'message' => 'Não foi possivel inserir os dados no Banco de Dados'
+                    'message' => 'Não foi possivel inserir a vaga no Banco de Dados'
                 );
         } else
             return array(
@@ -79,17 +79,17 @@ function atualizarVaga($dadosVaga)
                 } else
                     return array(
                         'idErro'  => 1,
-                        'message' => 'Não foi possivel atualizar os dados no Banco de Dados'
+                        'message' => 'Não foi possivel atualizar a vaga Banco de Dados'
                     );
             } else
                 return array(
                     'idErro'   => 4,
-                    'message'  => 'Não é possível editar um registro sem informar um id válido.'
+                    'message'  => 'Não é possível editar uma vaga sem informar um id válido.'
                 );
         } else
             return array(
                 'idErro'   => 2,
-                'message'  => 'Existem campos obrigatório que não foram preenchidos.'
+                'message'  => 'Existem campos obrigatórios que não foram preenchidos.'
             );
     }
 }
@@ -113,12 +113,12 @@ function excluirVaga($id)
         } else
             return array(
                 'idErro'   => 3,
-                'message'  => 'O banco de dados não pode excluir o registro.'
+                'message'  => 'O banco de dados não pode excluir a vaga.'
             );
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível excluir um registro sem informar um id válido.'
+            'message'  => 'Não é possível excluir uma vaga sem informar um id válido.'
         );
 }
 
@@ -160,7 +160,7 @@ function buscarVaga($id)
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível buscar um registro sem informar um id válido.'
+            'message'  => 'Não é possível buscar uma vaga sem informar um id válido.'
         );
 }
 

@@ -33,7 +33,7 @@ function inserirTelefoneEstacionamento($dadosEstacionamento)
             else
                 return array(
                     'idErro'  => 1,
-                    'message' => 'Não foi possivel inserir os dados no Banco de Dados'
+                    'message' => 'Não foi possivel inserir um telefone do estacionamento no Banco de Dados'
                 );
         } else
             return array(
@@ -75,12 +75,12 @@ function atualizarTelefoneEstacionamento($dadosEstacionamento)
                 } else
                     return array(
                         'idErro'  => 1,
-                        'message' => 'Não foi possivel atualizar os dados no Banco de Dados'
+                        'message' => 'Não foi possivel atualizar o telefone do estacionamento Banco de Dados'
                     );
             } else
                 return array(
                     'idErro'   => 4,
-                    'message'  => 'Não é possível editar um registro sem informar um id válido.'
+                    'message'  => 'Não é possível editar o telefone do estacionamento sem informar um id válido.'
                 );
         } else
             return array(
@@ -109,12 +109,12 @@ function excluirTelefoneEstacionamento($id)
         } else
             return array(
                 'idErro'   => 3,
-                'message'  => 'O banco de dados não pode excluir o registro.'
+                'message'  => 'O banco de dados não pode excluir o telefone do estacionamento.'
             );
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível excluir um registro sem informar um id válido.'
+            'message'  => 'Não é possível excluir um telefone do estacionamento sem informar um id válido.'
         );
 }
 
@@ -156,6 +156,6 @@ function buscarTelefoneEstacionamento($id)
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível buscar um registro sem informar um id válido.'
+            'message'  => 'Não é possível buscar um telefone do estacionamento sem informar um id válido.'
         );
 }

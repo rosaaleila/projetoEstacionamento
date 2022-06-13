@@ -32,12 +32,12 @@ function inserirSetor($dadosSetor)
             else
                 return array(
                     'idErro'  => 1,
-                    'message' => 'Não foi possivel inserir os dados no Banco de Dados'
+                    'message' => 'Não foi possivel inserir o dado no Banco de Dados'
                 );
         } else
             return array(
                 'idErro'   => 2,
-                'message'  => 'Existem campos obrigatório que não foram preenchidos.'
+                'message'  => 'Existem campos obrigatórios que não foram preenchidos.'
             );
     }
 }
@@ -73,17 +73,17 @@ function atualizarSetor($dadosSetor)
                 } else
                     return array(
                         'idErro'  => 1,
-                        'message' => 'Não foi possivel atualizar os dados no Banco de Dados'
+                        'message' => 'Não foi possivel atualizar o setor no Banco de Dados'
                     );
             } else
                 return array(
                     'idErro'   => 4,
-                    'message'  => 'Não é possível editar um registro sem informar um id válido.'
+                    'message'  => 'Não é possível editar um setor sem informar um id válido.'
                 );
         } else
             return array(
                 'idErro'   => 2,
-                'message'  => 'Existem campos obrigatório que não foram preenchidos.'
+                'message'  => 'Existem campos obrigatórios que não foram preenchidos.'
             );
     }
 }
@@ -107,12 +107,12 @@ function excluirSetor($id)
         } else
             return array(
                 'idErro'   => 3,
-                'message'  => 'O banco de dados não pode excluir o registro.'
+                'message'  => 'O banco de dados não pode excluir o setor.'
             );
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível excluir um registro sem informar um id válido.'
+            'message'  => 'Não é possível excluir um setor sem informar um id válido.'
         );
 }
 
@@ -154,6 +154,6 @@ function buscarSetor($id)
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível buscar um registro sem informar um id válido.'
+            'message'  => 'Não é possível buscar um setor sem informar um id válido.'
         );
 }

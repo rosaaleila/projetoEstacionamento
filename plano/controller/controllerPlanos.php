@@ -35,7 +35,7 @@ function inserirPlano($dadosPlano)
             else
                 return array(
                     'idErro'  => 1,
-                    'message' => 'Não foi possivel inserir os dados no Banco de Dados'
+                    'message' => 'Não foi possivel inserir um plano no Banco de Dados'
                 );
         } else
             return array(
@@ -79,17 +79,17 @@ function atualizarPlano($dadosPlano)
                 } else
                     return array(
                         'idErro'  => 1,
-                        'message' => 'Não foi possivel atualizar os dados no Banco de Dados'
+                        'message' => 'Não foi possivel atualizar o plano no Banco de Dados'
                     );
             } else
                 return array(
                     'idErro'   => 4,
-                    'message'  => 'Não é possível editar um registro sem informar um id válido.'
+                    'message'  => 'Não é possível editar um plano sem informar um id válido.'
                 );
         } else
             return array(
                 'idErro'   => 2,
-                'message'  => 'Existem campos obrigatório que não foram preenchidos.'
+                'message'  => 'Existem campos obrigatórios que não foram preenchidos.'
             );
     }
 }
@@ -114,12 +114,12 @@ function excluirPlano($id)
         } else
             return array(
                 'idErro'   => 3,
-                'message'  => 'O banco de dados não pode excluir o registro.'
+                'message'  => 'O banco de dados não pode excluir o plano.'
             );
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível excluir um registro sem informar um id válido.'
+            'message'  => 'Não é possível excluir um plano sem informar um id válido.'
         );
 }
 
@@ -161,7 +161,7 @@ function buscarPlano($id)
     } else
         return array(
             'idErro'   => 4,
-            'message'  => 'Não é possível buscar um registro sem informar um id válido.'
+            'message'  => 'Não é possível buscar um plano sem informar um id válido.'
         );
 }
 
