@@ -46,31 +46,6 @@ INSERT INTO `tblcliente` VALUES (1,'Vinicio','01.000.000.00','11 98005-4891','vi
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbldia`
---
-
-DROP TABLE IF EXISTS `tbldia`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tbldia` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbldia`
---
-
-LOCK TABLES `tbldia` WRITE;
-/*!40000 ALTER TABLE `tbldia` DISABLE KEYS */;
-INSERT INTO `tbldia` VALUES (1,'Domingo'),(2,'Segunda-feira'),(3,'Terça-feira'),(4,'Quarta-feira'),(5,'Quinta-feira'),(6,'Sexta-feira'),(7,'Sábado');
-/*!40000 ALTER TABLE `tbldia` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tblemail_estacionamento`
 --
 
@@ -127,37 +102,6 @@ LOCK TABLES `tblestacionamento` WRITE;
 /*!40000 ALTER TABLE `tblestacionamento` DISABLE KEYS */;
 INSERT INTO `tblestacionamento` VALUES (1,'Fast Parking','AV. Monteiro Lobato','4250','07180-000','Cidade Jardim Cumbica','Guarulhos','São Paulo'),(2,'Fast Parking','AV. Monteiro Lobato','4250','07180-000','Cidade Jardim Cumbica','Guarulhos','São Paulo'),(3,'Fast Parking','AV. Monteiro Lobato','4250','07180-000','Cidade Jardim Cumbica','Guarulhos','São Paulo'),(4,'Fast Parking','AV. Monteiro Lobato','4250','07180-000','Cidade Jardim Cumbica','Guarulhos','São Paulo');
 /*!40000 ALTER TABLE `tblestacionamento` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tblfuncionamento`
---
-
-DROP TABLE IF EXISTS `tblfuncionamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tblfuncionamento` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `horaAbertura` time NOT NULL,
-  `horaFechamento` time NOT NULL,
-  `idEstacionamento` int unsigned NOT NULL,
-  `idDia` int unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `FK_Funcionamento_Dia` (`idDia`),
-  KEY `FK_Funcionamento_Estacionamento` (`idEstacionamento`),
-  CONSTRAINT `FK_Funcionamento_Dia` FOREIGN KEY (`idDia`) REFERENCES `tbldia` (`id`),
-  CONSTRAINT `FK_Funcionamento_Estacionamento` FOREIGN KEY (`idEstacionamento`) REFERENCES `tblestacionamento` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tblfuncionamento`
---
-
-LOCK TABLES `tblfuncionamento` WRITE;
-/*!40000 ALTER TABLE `tblfuncionamento` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tblfuncionamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -347,4 +291,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-13 15:16:22
+-- Dump completed on 2022-06-13 15:36:05
