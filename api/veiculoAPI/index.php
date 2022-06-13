@@ -17,12 +17,12 @@
   // Criando um objeto do slim chamado app, para configurar os Endpoints
   $app = new \Slim\App();
 
-  // Endpoint que retorna todos os registros de veículos
+  // Endpoint que retorna todos os Veículos de veículos
   $app->get('/veiculos', function ($request, $response, $args) {
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
-    // import da controller de contatos, que fara a busca de dados
+    // import da controller de Veículos, que fara a busca de dados
     require_once('../veiculo/controller/controllerVeiculos.php');
 
     // solicita os dados para a controller
@@ -40,18 +40,18 @@
         return $response
             ->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar Veículos."}');
     }
 });
 
   // Endpoint que retorna um veículo de acordo com seu ID
   $app->get('/veiculos/{id}', function($request, $response, $args){
     
-    //Recebe o id do registro que devera ser retornado pela api
+    //Recebe o id do Veículo que devera ser retornado pela api
     //Esse ID está chegando pela varável criada no endpoint
     $id = $args['id'];
      
-     //import da controller de contatos, que fará a busca de dados
+     //import da controller de Veículos, que fará a busca de dados
     require_once('../modulo/config.php');
     require_once('../veiculo/controller/controllerVeiculos.php');
     //solicita os dados para a controller
@@ -102,7 +102,7 @@
         //Recebe os dados enviado pelo corpo da requisição
         $dadosBody = $request->getParsedBody();   
       
-      //import da controller de contatos, que fará a busca de dados
+      //import da controller de Veículos, que fará a busca de dados
       require_once('../modulo/config.php');
       require_once('../veiculo/controller/controllerVeiculos.php');
       
@@ -120,7 +120,7 @@
 
         return $response   ->withStatus(400)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Erro ao inserir contato."},
+                            ->write('{"message":"Erro ao inserir Veículo."},
                             "Erro": '.$dadosJSON.' }');
       }     
         
@@ -150,12 +150,12 @@
 
       switch ($contentType[0]) {
         case 'application/json':
-          //import da controller de contatos, que fará a busca de dados
-          require_once('../modulo/config.php');
-          require_once('../veiculo/controller/controllerVeiculos.php');
 
-          //chama a função para buscar a foto que ja está salva no banco de dados
+          // Import do arquivo de configuração do projeto
+          require_once('../modulo/config.php');
           
+          // Import da controller de Veículos, que fará a busca de dados
+          require_once('../veiculo/controller/controllerVeiculos.php');
 
           $dadosBody = $request->getParsedBody();
             
@@ -163,7 +163,6 @@
           $arrayDados = array( $dadosBody,                               
                               "id" => $id                              
           );
-        
           
           $resposta = atualizarVeiculo($arrayDados);
 
@@ -171,7 +170,7 @@
 
             return $response   ->withStatus(200)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Contato atualizado com sucesso"}');
+                                ->write('{"message":"Veículo atualizado com sucesso"}');
 
           } elseif (is_array($resposta) && $resposta['idErro'])        
           {
@@ -179,7 +178,7 @@
 
             return $response   ->withStatus(400)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Erro ao atualizar contato."},
+                                ->write('{"message":"Erro ao atualizar Veículo."},
                                 "Erro": '.$dadosJSON.' }');
             break;      
           
@@ -191,14 +190,12 @@
       //retorna um erro que significa que o cliente passou os dados errados
       return  $response   ->withStatus(404)
                           ->withHeader('Content-Type', 'application/json')
-                          ->write('{"message" : "É obrigatorio informar um ID com formato valido (número)"}');
+                          ->write('{"message" : "É obrigatorio informar um ID com formato válido (número)!"}');
     }
   });
 
   // Endpoint que deleta um veículo de acordo com seu ID
   $app->delete('/veiculos/{id}', function($request, $response, $args){
-
-
 
     if(is_numeric($args['id']))
     {
@@ -211,22 +208,20 @@
 
       //Busca o nome da foto para ser excluida na coontroller
       if($resposta = excluirVeiculo($id))
-      {       
-
-        
+      {
         
         if(is_bool($resposta) && $resposta == true)
         {
           return  $response   ->withStatus(200)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Registro excluido com sucesso"}');
+                              ->write('{"message" : "Veículo excluido com sucesso"}');
         }elseif(is_array($resposta) && isset($resposta['idErro']))
         {
           if($resposta['idErro'] == 5)
           {
             return  $response   ->withStatus(200)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message" : "Resgistro excluido com sucesso, porém houve um problema na exclusão da foto"}');
+                                ->write('{"message" : "Veículo excluido com sucesso, porém houve um problema na exclusão da foto"}');
           }else{
 
           
@@ -234,7 +229,7 @@
 
             return  $response ->withStatus(404)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Ouve um problema no processo de excluir",
+                              ->write('{"message" : "Houve um problema no processo de excluir",
                                       "Erro" : '.$dadosJSON.'}');
           }                          
         }
@@ -259,7 +254,7 @@
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
-    // import da controller de contatos, que fara a busca de dados
+    // import da controller de Veículos, que fara a busca de dados
     require_once('../veiculo/controller/controllerVeiculos.php');
 
     // solicita os dados para a controller
@@ -277,12 +272,11 @@
         return $response
             ->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+            ->write('{"idErro": 404, "message": "Não foi possivel encontrar Veículos."}');
     }
   });
 
   //Executa todos os Endpoint
   $app->run();
-  
 
 ?>

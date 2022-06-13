@@ -25,7 +25,7 @@
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
-    // import da controller de contatos, que fara a busca de dados
+    // import da controller de Setors, que fara a busca de dados
     require_once('../setor/controller/controllerSetores.php');
 
     // solicita os dados para a controller
@@ -43,18 +43,18 @@
         return $response
             ->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar Setores."}');
     }
 });
 
-  //Endpoint Requisição para listar contatos pelo id
+  //Endpoint Requisição para listar Setors pelo id
   $app->get('/setores/{id}', function($request, $response, $args){
     
-    //Recebe o id do registro que devera ser retornado pela api
+    //Recebe o id do Setor que devera ser retornado pela api
     //Esse ID está chegando pela varável criada no endpoint
     $id = $args['id'];
      
-     //import da controller de contatos, que fará a busca de dados
+     //import da controller de Setors, que fará a busca de dados
     require_once('../modulo/config.php');
     require_once('../setor/controller/controllerSetores.php');
     //solicita os dados para a controller
@@ -105,7 +105,7 @@
         //Recebe os dados enviado pelo corpo da requisição
         $dadosBody = $request->getParsedBody();   
       
-      //import da controller de contatos, que fará a busca de dados
+      //import da controller de Setores, que fará a busca de dados
       require_once('../modulo/config.php');
       require_once('../setor/controller/controllerSetores.php');
       
@@ -115,7 +115,7 @@
 
         return $response   ->withStatus(201)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Contato inserido com sucesso"}');
+                            ->write('{"message":"Setor inserido com sucesso"}');
 
       } elseif (is_array($resposta) && $resposta['idErro'])        
       {
@@ -123,7 +123,7 @@
 
         return $response   ->withStatus(400)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Erro ao inserir contato."},
+                            ->write('{"message":"Erro ao inserir Setor."},
                             "Erro": '.$dadosJSON.' }');
       }     
         
@@ -133,7 +133,7 @@
 
   });
 
-  //Endpoint Requisição para atualizar um contato, simulando o PUT
+  //Endpoint Requisição para atualizar um Setor, simulando o PUT
   $app->put('/setores/{id}', function($request, $response, $args){
       
     //Recebe do header da requisição qual será o content type
@@ -143,22 +143,15 @@
 
     if(is_numeric($args['id']))
     {
-      
-      
+    
       //Recebe o id enviado no Endpoint atraves da vareavel ID
       $id = $args['id'];  
-      
-      echo($id);
-      
 
       switch ($contentType[0]) {
         case 'application/json':
-          //import da controller de contatos, que fará a busca de dados
+          //import da controller de Setors, que fará a busca de dados
           require_once('../modulo/config.php');
           require_once('../setor/controller/controllerSetores.php');
-
-          //chama a função para buscar a foto que ja está salva no banco de dados
-          
 
           $dadosBody = $request->getParsedBody();
             
@@ -166,7 +159,6 @@
           $arrayDados = array( $dadosBody,                               
                               "id" => $id                              
           );
-        
           
           $resposta = atualizarSetor($arrayDados);
 
@@ -174,7 +166,7 @@
 
             return $response   ->withStatus(200)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Contato atualizado com sucesso"}');
+                                ->write('{"message":"Setor atualizado com sucesso"}');
 
           } elseif (is_array($resposta) && $resposta['idErro'])        
           {
@@ -182,7 +174,7 @@
 
             return $response   ->withStatus(400)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Erro ao atualizar contato."},
+                                ->write('{"message":"Erro ao atualizar Setor."},
                                 "Erro": '.$dadosJSON.' }');
             break;      
           
@@ -198,10 +190,8 @@
     }
   });
 
-  //Endpoit: Requisição para deletar um contato
+  //Endpoit: Requisição para deletar um Setor
   $app->delete('/setores/{id}', function($request, $response, $args){
-
-
 
     if(is_numeric($args['id']))
     {
@@ -215,31 +205,21 @@
       //Busca o nome da foto para ser excluida na coontroller
       if($resposta = excluirSetor($id))
       {       
-
-        
-        
         if(is_bool($resposta) && $resposta == true)
         {
           return  $response   ->withStatus(200)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Registro excluido com sucesso"}');
+                              ->write('{"message" : "Setor excluido com sucesso"}');
         }elseif(is_array($resposta) && isset($resposta['idErro']))
         {
-          if($resposta['idErro'] == 5)
-          {
-            return  $response   ->withStatus(200)
-                                ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message" : "Resgistro excluido com sucesso, porém houve um problema na exclusão da foto"}');
-          }else{
 
-          
             $dadosJSON=createJSON($resposta);
 
             return  $response ->withStatus(404)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Ouve um problema no processo de excluir",
+                              ->write('{"message" : "Houve um problema no processo de excluir",
                                       "Erro" : '.$dadosJSON.'}');
-          }                          
+                               
         }
       }else
       {

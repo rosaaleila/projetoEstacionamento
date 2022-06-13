@@ -25,7 +25,7 @@
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
-    // import da controller de contatos, que fara a busca de dados
+    // import da controller de Vagas, que fara a busca de dados
     require_once('../vaga/controller/controllerVagas.php');
 
     // solicita os dados para a controller
@@ -43,18 +43,18 @@
         return $response
             ->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar Vagas."}');
     }
 });
 
-  //Endpoint Requisição para listar contatos pelo id
+  //Endpoint Requisição para listar Vagas pelo id
   $app->get('/vagas/{id}', function($request, $response, $args){
     
-    //Recebe o id do registro que devera ser retornado pela api
+    //Recebe o id do Vaga que devera ser retornado pela api
     //Esse ID está chegando pela varável criada no endpoint
     $id = $args['id'];
      
-     //import da controller de contatos, que fará a busca de dados
+     //import da controller de Vagas, que fará a busca de dados
     require_once('../modulo/config.php');
     require_once('../vaga/controller/controllerVagas.php');
     //solicita os dados para a controller
@@ -105,7 +105,7 @@
         //Recebe os dados enviado pelo corpo da requisição
         $dadosBody = $request->getParsedBody();   
       
-      //import da controller de contatos, que fará a busca de dados
+      //import da controller de Vagas, que fará a busca de dados
       require_once('../modulo/config.php');
       require_once('../vaga/controller/controllerVagas.php');
       
@@ -115,7 +115,7 @@
 
         return $response   ->withStatus(201)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Contato inserido com sucesso"}');
+                            ->write('{"message":"Vaga inserida com sucesso"}');
 
       } elseif (is_array($resposta) && $resposta['idErro'])        
       {
@@ -123,7 +123,7 @@
 
         return $response   ->withStatus(400)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Erro ao inserir contato."},
+                            ->write('{"message":"Erro ao inserir Vaga."},
                             "Erro": '.$dadosJSON.' }');
       }     
         
@@ -133,7 +133,7 @@
 
   });
 
-  //Endpoint Requisição para atualizar um contato, simulando o PUT
+  //Endpoint Requisição para atualizar um Vaga, simulando o PUT
   $app->put('/vagas/{id}', function($request, $response, $args){
       
     //Recebe do header da requisição qual será o content type
@@ -151,7 +151,7 @@
 
       switch ($contentType[0]) {
         case 'application/json':
-          //import da controller de contatos, que fará a busca de dados
+          //import da controller de Vagas, que fará a busca de dados
           require_once('../modulo/config.php');
           require_once('../vaga/controller/controllerVagas.php');
 
@@ -172,7 +172,7 @@
 
             return $response   ->withStatus(200)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Contato atualizado com sucesso"}');
+                                ->write('{"message":"Vaga atualizada com sucesso"}');
 
           } elseif (is_array($resposta) && $resposta['idErro'])        
           {
@@ -180,7 +180,7 @@
 
             return $response   ->withStatus(400)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Erro ao atualizar contato."},
+                                ->write('{"message":"Erro ao atualizar Vaga."},
                                 "Erro": '.$dadosJSON.' }');
             break;      
           
@@ -196,10 +196,8 @@
     }
   });
 
-  //Endpoit: Requisição para deletar um contato
+  //Endpoit: Requisição para deletar um Vaga
   $app->delete('/vagas/{id}', function($request, $response, $args){
-
-
 
     if(is_numeric($args['id']))
     {
@@ -213,31 +211,22 @@
       //Busca o nome da foto para ser excluida na coontroller
       if($resposta = excluirVaga($id))
       {       
-
-        
-        
+   
         if(is_bool($resposta) && $resposta == true)
         {
           return  $response   ->withStatus(200)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Registro excluido com sucesso"}');
+                              ->write('{"message" : "Vaga excluida com sucesso"}');
         }elseif(is_array($resposta) && isset($resposta['idErro']))
         {
-          if($resposta['idErro'] == 5)
-          {
-            return  $response   ->withStatus(200)
-                                ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message" : "Resgistro excluido com sucesso, porém houve um problema na exclusão da foto"}');
-          }else{
 
-          
             $dadosJSON=createJSON($resposta);
 
             return  $response ->withStatus(404)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Ouve um problema no processo de excluir",
+                              ->write('{"message" : "Houve um problema no processo de excluir",
                                       "Erro" : '.$dadosJSON.'}');
-          }                          
+                                    
         }
       }else
       {
@@ -259,7 +248,7 @@
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
-    // import da controller de contatos, que fara a busca de dados
+    // import da controller de Vagas, que fara a busca de dados
     require_once('../vaga/controller/controllerVagas.php');
 
     // solicita os dados para a controller
@@ -277,7 +266,7 @@
         return $response
             ->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar Vagas."}');
     }
 });
 
@@ -286,7 +275,7 @@ $app->get('/vagas/listar/livres', function ($request, $response, $args) {
 
   // importa do arquivo de configuracao
   require_once('../modulo/config.php');
-  // import da controller de contatos, que fara a busca de dados
+  // import da controller de Vagas, que fara a busca de dados
   require_once('../vaga/controller/controllerVagas.php');
 
   // solicita os dados para a controller
@@ -304,7 +293,7 @@ $app->get('/vagas/listar/livres', function ($request, $response, $args) {
       return $response
           ->withStatus(404)
           ->withHeader('Content-Type', 'application/json')
-          ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+          ->write('{"idErro": "404", "message": "Não foi possivel encontrar Vagas."}');
   }
 });
 

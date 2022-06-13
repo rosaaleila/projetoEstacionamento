@@ -73,7 +73,7 @@
         //retorna um status code caso a solicitacao dê errado
         return $response  ->withStatus(404)
                           ->withHeader('Content-Type', 'application/json')
-                          ->write('{"message": "id ou cliente inválido",
+                          ->write('{"message": "ID ou Cliente inválido",
                           "Erro": '.$dadosJSON.' }');
                           
       }
@@ -203,8 +203,6 @@
       //Busca o nome da foto para ser excluida na coontroller
       if($resposta = excluirCliente($id))
       {       
-
-        
         
         if(is_bool($resposta) && $resposta == true)
         {
@@ -212,22 +210,13 @@
                               ->withHeader('Content-Type', 'application/json')
                               ->write('{"message" : "Registro excluido com sucesso"}');
         }elseif(is_array($resposta) && isset($resposta['idErro']))
-        {
-          if($resposta['idErro'] == 5)
-          {
-            return  $response   ->withStatus(200)
-                                ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message" : "Resgistro excluido com sucesso, porém houve um problema na exclusão da foto"}');
-          }else{
-
-          
+        { 
             $dadosJSON=createJSON($resposta);
 
             return  $response ->withStatus(404)
                               ->withHeader('Content-Type', 'application/json')
                               ->write('{"message" : "Ouve um problema no processo de excluir",
-                                      "Erro" : '.$dadosJSON.'}');
-          }                          
+                                      "Erro" : '.$dadosJSON.'}');                         
         }
       }else
       {

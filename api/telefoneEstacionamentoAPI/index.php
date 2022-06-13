@@ -25,7 +25,7 @@
 
     // importa do arquivo de configuracao
     require_once('../modulo/config.php');
-    // import da controller de contatos, que fara a busca de dados
+    // import da controller de Telefones, que fara a busca de dados
     require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
 
     // solicita os dados para a controller
@@ -43,18 +43,18 @@
         return $response
             ->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write('{"idErro": "404", "message": "Não foi possivel encontrar registros."}');
+            ->write('{"idErro": "404", "message": "Não foi possivel encontrar Telefones."}');
     }
 });
 
-  //Endpoint Requisição para listar contatos pelo id
+  //Endpoint Requisição para listar Telefones pelo id
   $app->get('/telefoneestacionamento/{id}', function($request, $response, $args){
     
-    //Recebe o id do registro que devera ser retornado pela api
+    //Recebe o id do Telefone que devera ser retornado pela api
     //Esse ID está chegando pela varável criada no endpoint
     $id = $args['id'];
      
-     //import da controller de contatos, que fará a busca de dados
+     //import da controller de Telefones, que fará a busca de dados
     require_once('../modulo/config.php');
     require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
     //solicita os dados para a controller
@@ -105,7 +105,7 @@
         //Recebe os dados enviado pelo corpo da requisição
         $dadosBody = $request->getParsedBody();   
       
-      //import da controller de contatos, que fará a busca de dados
+      //import da controller de Telefones, que fará a busca de dados
       require_once('../modulo/config.php');
       require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
       
@@ -115,7 +115,7 @@
 
         return $response   ->withStatus(201)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Contato inserido com sucesso"}');
+                            ->write('{"message":"Telefone inserido com sucesso"}');
 
       } elseif (is_array($resposta) && $resposta['idErro'])        
       {
@@ -123,7 +123,7 @@
 
         return $response   ->withStatus(400)
                             ->withHeader('Content-Type', 'application/json')
-                            ->write('{"message":"Erro ao inserir contato."},
+                            ->write('{"message":"Erro ao inserir Telefone."},
                             "Erro": '.$dadosJSON.' }');
       }     
         
@@ -133,7 +133,7 @@
 
   });
 
-  //Endpoint Requisição para atualizar um contato, simulando o PUT
+  //Endpoint Requisição para atualizar um Telefone, simulando o PUT
   $app->put('/telefoneestacionamento/{id}', function($request, $response, $args){
       
     //Recebe do header da requisição qual será o content type
@@ -149,7 +149,7 @@
     
       switch ($contentType[0]) {
         case 'application/json':
-          //import da controller de contatos, que fará a busca de dados
+          //import da controller de Telefones, que fará a busca de dados
           require_once('../modulo/config.php');
           require_once('../estacionamento/controller/controllerTelefoneEstacionamento.php');
 
@@ -169,7 +169,7 @@
 
             return $response   ->withStatus(200)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Contato atualizado com sucesso"}');
+                                ->write('{"message":"Telefone atualizado com sucesso"}');
 
           } elseif (is_array($resposta) && $resposta['idErro'])        
           {
@@ -177,7 +177,7 @@
 
             return $response   ->withStatus(400)
                                 ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message":"Erro ao atualizar contato."},
+                                ->write('{"message":"Erro ao atualizar Telefone."},
                                 "Erro": '.$dadosJSON.' }');
             break;      
           
@@ -192,7 +192,7 @@
     }
   });
 
-  //Endpoit: Requisição para deletar um contato
+  //Endpoit: Requisição para deletar um Telefone
   $app->delete('/telefoneestacionamento/{id}', function($request, $response, $args){
 
     if(is_numeric($args['id']))
@@ -212,23 +212,15 @@
         {
           return  $response   ->withStatus(200)
                               ->withHeader('Content-Type', 'application/json')
-                              ->write('{"message" : "Registro excluido com sucesso"}');
+                              ->write('{"message" : "Telefone excluido com sucesso"}');
         }elseif(is_array($resposta) && isset($resposta['idErro']))
         {
-          if($resposta['idErro'] == 5)
-          {
-            return  $response   ->withStatus(200)
-                                ->withHeader('Content-Type', 'application/json')
-                                ->write('{"message" : "Resgistro excluido com sucesso, porém houve um problema na exclusão da foto"}');
-          }else{
-
             $dadosJSON=createJSON($resposta);
 
             return  $response ->withStatus(404)
                               ->withHeader('Content-Type', 'application/json')
                               ->write('{"message" : "Ouve um problema no processo de excluir",
-                                      "Erro" : '.$dadosJSON.'}');
-          }                          
+                                      "Erro" : '.$dadosJSON.'}');                      
         }
       }else
       {
@@ -247,6 +239,5 @@
 
   //Executa todos os Endpoint
   $app->run();
-  
 
 ?>
