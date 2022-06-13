@@ -74,7 +74,8 @@ function listarAllRegistroEntrada()
             inner join tblRegistro r
                 on v.id = r.idVeiculo 
             inner join tblVagas vg
-                on vg.id = r.idVagas;";
+                on vg.id = r.idVagas
+            order by idRegistro desc;";
 
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
