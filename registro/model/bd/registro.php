@@ -149,7 +149,8 @@ function listarAllRegistroSaida()
                 "placa"             =>  $rsDados['placa'],
                 "telefone"          =>  $rsDados['telefone'],
                 "dataSaida"         =>  $rsDados['dataSaida'],
-                "horaSaida"       =>  $rsDados['horaSaida'] 
+                "horaSaida"         =>  $rsDados['horaSaida'],
+                "nome"              => $rsDados['nome']
             );
             $cont++;
         }
@@ -325,6 +326,7 @@ function buscarDadosRegistro($placa)
     $sql = "select 
     tblveiculo.id as idVeiculo,
     tblplano.id as idPlano,
+    tblvagas.id as idVaga,
     tblveiculo.placa,
     tblcliente.nome as nomeCliente,
     tblcliente.documento as RG,
