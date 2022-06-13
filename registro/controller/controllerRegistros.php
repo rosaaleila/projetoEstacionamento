@@ -57,17 +57,16 @@ function atualizarRegistro($dadosRegistro)
     if (!empty($dadosRegistro)) {
 
         // Validação para verificar se o objeto contém os dados obrigatórios
-        if (!empty($dadosRegistro[0]['horaEntrada']) && !empty($dadosRegistro[0]['diaEntrada']) && !empty($dadosRegistro[0]['idVagas']) && !empty($dadosRegistro[0]['idVeiculo'])) {
+        if (!empty($dadosRegistro[0]['horaEntrada']) && !empty($dadosRegistro[0]['diaEntrada']) && !empty($dadosRegistro[0]['idVagas']) && !empty($dadosRegistro[0]['idVeiculo']) && !empty($dadosRegistro[0]['precoFinal'])) {
 
             //Validação para verificar se o ID é válido
             if (!empty($id) && $id != 0 && is_numeric($id)) {
 
                 // Criação do array de dados que será encaminhado para a Model
                 $arrayDados = array(
-                    "id"        => $id,
+                    "id"                    => $id,
                     "horaEntrada"           => $dadosRegistro[0]['horaEntrada'],
                     "diaEntrada"            => $dadosRegistro[0]['diaEntrada'],
-                    "diaSaida"              => $dadosRegistro[0]['diaSaida'],
                     "precoFinal"            => $dadosRegistro[0]['precoFinal'],
                     "idVagas"               => $dadosRegistro[0]['idVagas'],
                     "idVeiculo"             => $dadosRegistro[0]['idVeiculo']

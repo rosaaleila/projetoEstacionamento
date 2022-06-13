@@ -63,8 +63,11 @@ function listarAllRegistroEntrada()
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD
-    $sql = "select r.id as idRegistro, c.nome as nomeCliente,
-            v.placa, vg.numero as numeroVaga, c.telefone
+    $sql = "select r.id as idRegistro,
+            c.nome as nomeCliente,
+            v.placa,
+            vg.numero as numeroVaga,
+            c.telefone
             from tblCliente c
             inner join tblVeiculo v
                 on c.id = v.idCliente
@@ -113,8 +116,12 @@ function listarAllRegistroSaida()
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD
-    $sql = "select r.id as idRegistro, v.placa, c.telefone,
-            r.diasaida as dataSaida, r.horasaida as horaSaida
+    $sql = "select r.id as idRegistro,
+            v.placa,
+            c.nome,
+            c.telefone,
+            r.diasaida as dataSaida,
+            r.horasaida as horaSaida
             from tblCliente c
             inner join tblVeiculo v
                 on c.id = v.idCliente
@@ -122,7 +129,7 @@ function listarAllRegistroSaida()
                 on v.id = r.idVeiculo                 
             inner join tblVagas vg
                 on vg.id = r.idVagas
-            where r.diasaida and r.horasaida != 'null'			
+            where r.diasaida and r.horasaida is not null	
             order by datasaida, horasaida desc;";
 
     // Executa o script sql no BD e guarda o retorno dos dados
@@ -141,8 +148,7 @@ function listarAllRegistroSaida()
                 "placa"             =>  $rsDados['placa'],
                 "telefone"          =>  $rsDados['telefone'],
                 "dataSaida"         =>  $rsDados['dataSaida'],
-                "horaSaida"       =>  $rsDados['horaSaida']          
-                
+                "horaSaida"       =>  $rsDados['horaSaida'] 
             );
             $cont++;
         }
@@ -307,7 +313,6 @@ function deleteRegistro($id)
     return $status;
 }
 
-
 // Função para listar todos os registros no BD
 function buscarDadosRegistro($placa)
 {
@@ -322,8 +327,8 @@ function buscarDadosRegistro($placa)
     tblveiculo.placa,
     tblcliente.nome as nomeCliente,
     tblcliente.documento as RG,
-    tblregistro.horaentrada,
-    tblregistro.diaentrada,
+    tblregistro.horaentrada as horaEntrada,
+    tblregistro.diaentrada as diaEntrada,
         (select datediff(curdate(), diaEntrada)) as totalDias,
         (select hour(timediff(horaEntrada, curtime()))) as totalHoras,
         (select CASE 

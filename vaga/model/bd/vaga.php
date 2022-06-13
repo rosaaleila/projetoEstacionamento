@@ -224,19 +224,17 @@ function listarVagasDisponiveis()
     $conexao = conexaoMysql();
 
     // Script para listar todos os dados do BD
-    $sql = "select 
-	tblvagas.id as idVaga,
+    $sql = "select distinct
+    tblvagas.id as idVaga,
     tblplano.id as idPlano,
     tblvagas.numero as vaga,
     tblplano.nome as plano,
     tblsetor.nome as setor
-    from tblvagas
-	inner join tblregistro
-        on tblregistro.precofinal is not null
-	inner join tblsetor 
-		on tblsetor.id = tblvagas.idsetor
-	inner join tblplano
-		on tblplano.id = tblvagas.idplano;";
+    from tblvagas, tblregistro, tblplano, tblsetor
+    where tblvagas.id not in
+    (select tblvagas.id from tblvagas inner join tblregistro on tblvagas.id = tblregistro.idvagas and tblregistro.precofinal is null)
+    and tblsetor.id = tblvagas.idsetor
+    and tblplano.id = tblvagas.idplano;";
 
     // Executa o script sql no BD e guarda o retorno dos dados
     $result = mysqli_query($conexao, $sql);
