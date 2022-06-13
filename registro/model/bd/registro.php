@@ -367,6 +367,7 @@ function buscarDadosRegistro($placa)
             $arrayDados = array(
                 "idVeiculo"         =>  $rsDados['idVeiculo'],
                 "idPlano"           =>  $rsDados['idPlano'],
+                "idVaga"            =>  $rsDados['idVaga'],
                 "placa"             =>  $rsDados['placa'],
                 "nomeCliente"       =>  $rsDados['nomeCliente'],
                 "RG"                =>  $rsDados['RG'],
