@@ -1,26 +1,23 @@
 <?php
 
-  /*
-  * $request -> Recebe dados do corpo da requisição (JSON, FORM/DATA, XML, etc)
-  * $response -> Envia dados de retorno da API
-  * $args -> Permite receber dados de atributos na API
-  *
-  * Os metodos de reposição para uma API RESTful são:
-  * GET       - para buscar dados
-  * POST      - para iserir um novo dado
-  * DELETE    - para apagar dados
-  * PUT/PATCH - para editar um dado já existente
-  *             o mais utilizado é o PUT
-  *
-  * 
-  */
+ /***********************************************************************
+ * Objetivo: Arquivo responsável por preparar os endpoints do cliente à serem 
+ * usados como uma API pegando os dados armazenados no banco de dados e 
+ * retornando para quem fizer a requisição dos endpoints. 
+ * 		    
+ * Autora: Leila e Vinicio
+ * Data: 02/06/2022
+ * Versão: 1.0
+ ***********************************************************************/
 
-  //import do arquivo autoload, que fará as instancias do slim
+
+  // Import do arquivo autoload, que fará as instancias do slim
   require_once('vendor/autoload.php');  
 
-  //Criando um objeto do slim chamado app, para coonfigurar os endpoints(rotas)
+  // Criando um objeto do slim chamado app, para configurar os Endpoints
   $app = new \Slim\App();
 
+  // Endpoint que retorna todos os registros de veículos
   $app->get('/veiculos', function ($request, $response, $args) {
 
     // importa do arquivo de configuracao
@@ -47,7 +44,7 @@
     }
 });
 
-  //Endpoint Requisição para listar contatos pelo id
+  // Endpoint que retorna um veículo de acordo com seu ID
   $app->get('/veiculos/{id}', function($request, $response, $args){
     
     //Recebe o id do registro que devera ser retornado pela api
@@ -91,7 +88,7 @@
 
   });
 
-  //Endpoint Requisição para inserir um novo cliente
+  // Endpoint que adiciona um novo veículo ao BD
   $app->post('/veiculos', function($request, $response, $args){
     
     //Recebe do header da requisição qual será o content type
@@ -132,8 +129,8 @@
     }
 
   });
-
-  //Endpoint Requisição para atualizar um contato, simulando o PUT
+ 
+  // Endpoint que atualiza um veículo de acordo com seu ID
   $app->put('/veiculos/{id}', function($request, $response, $args){
       
     //Recebe do header da requisição qual será o content type
@@ -198,7 +195,7 @@
     }
   });
 
-  //Endpoit: Requisição para deletar um contato
+  // Endpoit que deleta um veículo de acordo com seu ID
   $app->delete('/veiculos/{id}', function($request, $response, $args){
 
 
