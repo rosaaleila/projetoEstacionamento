@@ -32,7 +32,7 @@ CREATE TABLE `tblcliente` (
   `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `tblcliente` (
 
 LOCK TABLES `tblcliente` WRITE;
 /*!40000 ALTER TABLE `tblcliente` DISABLE KEYS */;
-INSERT INTO `tblcliente` VALUES (1,'Vinicio','01.000.000.00','11 98005-4891','viniciojesus@gmail.com'),(2,'Ricardo','02.000.000.00','11 88335-7891','eduardojesus@gmail.com'),(3,'Ricardo','03.000.000.00','11 77335-7891','ricardo@gmail.com'),(4,'Leandro','04.000.000.00','11 67335-7891','leandro@gmail.com'),(6,'Joao','06.000.000.00','11 75943-7891','joao@gmail.com'),(7,'jandkasj','06.000.000.00','11 46975-7891','jlaks@gmail.com'),(9,'Carlos','99.666.000.00','11 95765-7823','Carlos@gmail.com');
+INSERT INTO `tblcliente` VALUES (1,'Vinicio','01.000.000.00','11 98005-4891','viniciojesus@gmail.com'),(2,'Ricardo','02.000.000.00','11 88335-7891','eduardojesus@gmail.com'),(3,'Ricardo','03.000.000.00','11 77335-7891','ricardo@gmail.com'),(4,'Leandro','04.000.000.00','11 67335-7891','leandro@gmail.com'),(6,'Joao','06.000.000.00','11 75943-7891','joao@gmail.com'),(7,'jandkasj','06.000.000.00','11 46975-7891','jlaks@gmail.com'),(9,'Carlos','99.666.000.00','11 95765-7823','Carlos@gmail.com'),(10,'VINICIO DE JESUS','15.987.846-54','(11) 95329-0859','viniciojesus298@gmail.com');
 /*!40000 ALTER TABLE `tblcliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +184,7 @@ CREATE TABLE `tblplano` (
 
 LOCK TABLES `tblplano` WRITE;
 /*!40000 ALTER TABLE `tblplano` DISABLE KEYS */;
-INSERT INTO `tblplano` VALUES (1,'Bronze',20,15,300),(2,'Barro',25,5,105),(5,'Teste',22,4,1000),(6,'Teste',22,4,1000),(7,'Teste',22,4,1000),(8,'Teste',22,4,1000);
+INSERT INTO `tblplano` VALUES (1,'Bronze',20,15,300),(2,'Barro',25,5,105),(5,'Teste',22,4,1000),(6,'Teste',22,4,1000),(7,'Teste',22,4,1000);
 /*!40000 ALTER TABLE `tblplano` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,7 +210,7 @@ CREATE TABLE `tblregistro` (
   KEY `FK_Registro_Veiculo` (`idVeiculo`),
   CONSTRAINT `FK_Registro_Vagas` FOREIGN KEY (`idVagas`) REFERENCES `tblvagas` (`id`),
   CONSTRAINT `FK_Registro_Veiculo` FOREIGN KEY (`idVeiculo`) REFERENCES `tblveiculo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -219,7 +219,7 @@ CREATE TABLE `tblregistro` (
 
 LOCK TABLES `tblregistro` WRITE;
 /*!40000 ALTER TABLE `tblregistro` DISABLE KEYS */;
-INSERT INTO `tblregistro` VALUES (1,'14:00:00','16:56:51',22,'2022-06-08','2022-06-09',2,1),(4,'13:18:00',NULL,NULL,'2022-06-08',NULL,2,2),(5,'08:37:00',NULL,NULL,'2022-06-08',NULL,4,5);
+INSERT INTO `tblregistro` VALUES (1,'14:00:00','13:09:05',22,'2022-06-08','2022-06-10',2,1),(4,'14:00:00','13:09:56',22,'2022-06-08','2022-06-10',2,1),(5,'15:11:11','14:03:13',22,'2022-06-03','2022-06-10',4,5);
 /*!40000 ALTER TABLE `tblregistro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +325,7 @@ CREATE TABLE `tblveiculo` (
   UNIQUE KEY `id` (`id`),
   KEY `FK_Veiculo_Cliente` (`idCliente`),
   CONSTRAINT `FK_Veiculo_Cliente` FOREIGN KEY (`idCliente`) REFERENCES `tblcliente` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,13 +334,9 @@ CREATE TABLE `tblveiculo` (
 
 LOCK TABLES `tblveiculo` WRITE;
 /*!40000 ALTER TABLE `tblveiculo` DISABLE KEYS */;
-INSERT INTO `tblveiculo` VALUES (1,'ABC-1234',1),(2,'BRE-4897',2),(4,'JFK-4557',4),(5,'JFK-4557',6),(6,'DCE-2222',1);
+INSERT INTO `tblveiculo` VALUES (1,'ABC-1234',1),(2,'BRE-4897',2),(4,'JFK-4557',4),(5,'JFK-4557',6),(6,'DCE-2222',1),(7,'BDF-1458',10);
 /*!40000 ALTER TABLE `tblveiculo` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'dbfastparking'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -351,4 +347,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-09 16:59:21
+-- Dump completed on 2022-06-13 15:16:22
